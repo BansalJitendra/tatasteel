@@ -1,0 +1,118 @@
+/* Block: cards-stats
+   A full-width stats band: employee montage background image (with the
+   "Great Place to Work Certified" badge) overlaid with a dark-blue tint and
+   centered white headline text. Emphasized words render in amber.
+   Values extracted from source #section6 div.stats_box computed styles. */
+
+:root {
+  --stats-highlight-color: rgb(255 161 0);
+  --stats-overlay-color: rgb(35 82 124); /* #23527c section band tint */
+}
+
+/* Break out of the section's max-width so the band spans full width. */
+.cards-stats-container.section.stats {
+  padding: 0;
+}
+
+.cards-stats-container > .cards-stats-wrapper {
+  max-width: none;
+  padding: 0;
+}
+
+.cards-stats > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* The single li becomes the band; text overlays the background image. */
+.cards-stats > ul > li {
+  position: relative;
+  display: block;
+  min-height: 260px;
+  background-color: var(--stats-overlay-color);
+  overflow: hidden;
+}
+
+/* Badge / employee-montage image fills the whole band as a background. */
+.cards-stats .cards-stats-card-image {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  line-height: 0;
+  z-index: 0;
+}
+
+.cards-stats .cards-stats-card-image p {
+  margin: 0;
+  height: 100%;
+}
+
+.cards-stats .cards-stats-card-image picture {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.cards-stats .cards-stats-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* Dark-blue tint over the image so white text stays legible. */
+.cards-stats .cards-stats-card-image::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: var(--stats-overlay-color);
+  opacity: 0.62;
+}
+
+/* Centered text overlay, vertically centered within the band. */
+.cards-stats .cards-stats-card-body {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
+  max-width: 940px;
+  margin: 0 auto;
+  padding: 32px 15px;
+  text-align: center;
+}
+
+.cards-stats .cards-stats-card-body p {
+  margin: 0;
+  color: #fff;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.4;
+}
+
+/* Emphasized words: Great Place to Work-Certified, globe, 77,000 */
+.cards-stats .cards-stats-card-body strong {
+  color: var(--stats-highlight-color);
+  font-weight: 700;
+}
+
+.cards-stats .cards-stats-card-body sup {
+  font-size: 0.5em;
+}
+
+@media (width >= 900px) {
+  .cards-stats > ul > li {
+    min-height: 344px;
+  }
+
+  .cards-stats .cards-stats-card-body {
+    min-height: 344px;
+  }
+
+  .cards-stats .cards-stats-card-body p {
+    font-size: 32px;
+    line-height: 44.8px;
+  }
+}

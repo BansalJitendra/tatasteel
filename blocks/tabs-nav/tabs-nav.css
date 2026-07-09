@@ -1,0 +1,136 @@
+/* Block: tabs-nav
+ * Region/category selector tabs (Products & Solutions, Media).
+ * Source: tatasteel.com product gallery -- centered tiles with a product
+ * image and a label below. Migrated to an EDS tabs pattern: a horizontal
+ * tab bar (region labels) + a single active panel showing the product
+ * image and its link, centered.
+ */
+
+/* --- Tab bar --- */
+.tabs-nav .tabs-nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  justify-content: center;
+  margin: 0 0 32px;
+  padding: 0;
+  border-bottom: 1px solid #dadada;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+/* --- Tab label (region selector) --- */
+.tabs-nav .tabs-nav-list button.tabs-nav-tab {
+  flex: 0 0 auto;
+  margin: 0;
+  border: none;
+  border-bottom: 3px solid transparent;
+  border-radius: 0;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  text-transform: none;
+  white-space: nowrap;
+  overflow: visible;
+  text-overflow: unset;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.tabs-nav .tabs-nav-list button.tabs-nav-tab:hover,
+.tabs-nav .tabs-nav-list button.tabs-nav-tab:focus {
+  background-color: transparent;
+  color: var(--brand-blue);
+}
+
+.tabs-nav .tabs-nav-list button.tabs-nav-tab[aria-selected='true'] {
+  border-bottom-color: var(--brand-blue);
+  color: var(--brand-blue);
+  font-weight: 700;
+  cursor: default;
+}
+
+/* --- Panel: product image + link, centered --- */
+.tabs-nav .tabs-nav-panel {
+  margin: 0;
+  padding: 0;
+  border: none;
+  overflow: visible;
+  text-align: center;
+}
+
+.tabs-nav .tabs-nav-panel[aria-hidden='true'] {
+  display: none;
+}
+
+.tabs-nav .tabs-nav-panel > div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.tabs-nav p {
+  margin: 0;
+}
+
+.tabs-nav .tabs-nav-panel picture {
+  display: block;
+  line-height: 0;
+}
+
+.tabs-nav .tabs-nav-panel img {
+  width: 118px;
+  height: auto;
+  object-fit: contain;
+}
+
+/* The panel link is auto-decorated by EDS into a.button. Reset the pill
+ * styling and render it as the plain product label (30px, Lato) that
+ * appeared beneath the tile on the source. */
+.tabs-nav .tabs-nav-panel p.button-container {
+  margin: 0;
+}
+
+.tabs-nav .tabs-nav-panel a.button:any-link {
+  display: inline-block;
+  margin: 0;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  background-color: transparent;
+  color: var(--text-color);
+  font-family: var(--body-font-family);
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.2;
+  text-align: center;
+  text-decoration: none;
+  text-transform: none;
+  text-overflow: unset;
+  white-space: normal;
+  overflow: visible;
+}
+
+.tabs-nav .tabs-nav-panel a.button:any-link:hover,
+.tabs-nav .tabs-nav-panel a.button:any-link:focus {
+  background-color: transparent;
+  color: var(--brand-blue);
+  text-decoration: none;
+}
+
+@media (width >= 900px) {
+  .tabs-nav .tabs-nav-list button.tabs-nav-tab {
+    padding: 14px 40px;
+    font-size: 20px;
+  }
+
+  .tabs-nav .tabs-nav-panel a.button:any-link {
+    font-size: 30px;
+  }
+}

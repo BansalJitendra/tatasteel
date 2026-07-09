@@ -1,0 +1,84 @@
+{
+  "metadata": {
+    "projectType": "xwalk"
+  },
+  "templates": [
+    {
+      "name": "homepage",
+      "urls": [
+        "https://www.tatasteel.com/"
+      ],
+      "representativeUrl": "https://www.tatasteel.com/",
+      "coverageGaps": [],
+      "description": "Tata Steel corporate homepage - fullPage.js single-page layout with hero banner slideshow, sustainability slider, production/product gallery, investor boxes, media/video gallery, and stats section with footer",
+      "blocks": [
+        {
+          "name": "carousel-banner",
+          "instances": ["#section0 div.banner div.banner_slideshow"]
+        },
+        {
+          "name": "carousel-quote",
+          "instances": ["#section2 div.banner.sustainabilityNew"]
+        },
+        {
+          "name": "cards-stats",
+          "instances": ["#section2 div.impacts-wrapper", "#section6 div.stats_box"]
+        },
+        {
+          "name": "tabs-nav",
+          "instances": ["#section3 div.production_sector div.product_gallery", "#section5 div.media_cont div.filter_link"]
+        },
+        {
+          "name": "cards-investor",
+          "instances": ["#section4 div.investor_box div.investor_boxes"]
+        },
+        {
+          "name": "cards-media",
+          "instances": ["#section5 div.media_cont div.media_gallery"]
+        }
+      ],
+      "sections": [
+        {
+          "id": "section2",
+          "name": "sustainability",
+          "selector": "#section2",
+          "style": "sustainability",
+          "blocks": ["carousel-quote", "cards-stats"],
+          "defaultContent": ["#section2 h3.sectiontitle"]
+        },
+        {
+          "id": "section3",
+          "name": "products",
+          "selector": "#section3",
+          "style": "products",
+          "blocks": ["tabs-nav"],
+          "defaultContent": ["#section3 h3.sectiontitle"]
+        },
+        {
+          "id": "section4",
+          "name": "investors",
+          "selector": "#section4",
+          "style": "investors",
+          "blocks": ["cards-investor"],
+          "defaultContent": ["#section4 h3.sectiontitle"]
+        },
+        {
+          "id": "section5",
+          "name": "media",
+          "selector": "#section5",
+          "style": "media",
+          "blocks": ["tabs-nav", "cards-media"],
+          "defaultContent": ["#section5 h3.sectiontitle"]
+        },
+        {
+          "id": "section6",
+          "name": "stats",
+          "selector": "#section6",
+          "style": "stats",
+          "blocks": ["cards-stats"],
+          "defaultContent": []
+        }
+      ]
+    }
+  ]
+}

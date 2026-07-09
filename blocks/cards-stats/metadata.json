@@ -1,0 +1,38 @@
+{
+  "variantName": "cards-stats",
+  "baseBlock": "cards",
+  "version": "1.0.0",
+  "created": "2026-07-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.tatasteel.com/",
+    "originPage": "Tata Steel homepage - Our Impact / Stats band",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "stats",
+    "imagePattern": "noimg"
+  },
+  "contentPattern": {
+    "structure": "large number/percentage + descriptive label (optional badge image)",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "numeric impact/metric grids",
+      "KPI counters (percentages, totals)",
+      "single headline stat bands with certification badge"
+    ],
+    "notSuitableFor": [
+      "image-forward article/news cards",
+      "boxed multi-link informational panels"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-09T00:00:00.000Z"
+  }
+}

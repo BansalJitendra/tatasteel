@@ -115,6 +115,96 @@
           }
         },
         {
+          "title": "Cards Investor",
+          "id": "cards-investor",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Investor",
+                  "filter": "cards-investor"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Card",
+          "id": "cards-investor-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Card",
+                  "model": "cards-investor-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cards Media",
+          "id": "cards-media",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Media",
+                  "filter": "cards-media"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Card",
+          "id": "cards-media-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Card",
+                  "model": "cards-media-card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Cards Stats",
+          "id": "cards-stats",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Cards Stats",
+                  "filter": "cards-stats"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Card",
+          "id": "cards-stats-card",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Card",
+                  "model": "cards-stats-card"
+                }
+              }
+            }
+          }
+        },
+        {
           "title": "Cards",
           "id": "cards",
           "plugins": {
@@ -139,6 +229,66 @@
                 "template": {
                   "name": "Card",
                   "model": "card"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Banner",
+          "id": "carousel-banner",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Carousel Banner",
+                  "filter": "carousel-banner"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Banner Slide",
+          "id": "carousel-banner-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Banner Slide",
+                  "model": "carousel-banner-item"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Quote",
+          "id": "carousel-quote",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Carousel Quote",
+                  "filter": "carousel-quote"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Carousel Quote Slide",
+          "id": "carousel-quote-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Carousel Quote Slide",
+                  "model": "carousel-quote-item"
                 }
               }
             }
@@ -376,6 +526,38 @@
                   "column2text": "Column2",
                   "column3text": "Column3",
                   "column4text": "Column4"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tabs Nav",
+          "id": "tabs-nav",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block",
+                "template": {
+                  "name": "Tabs Nav",
+                  "filter": "tabs-nav"
+                }
+              }
+            }
+          }
+        },
+        {
+          "title": "Tabs Nav Item",
+          "id": "tabs-nav-item",
+          "plugins": {
+            "xwalk": {
+              "page": {
+                "resourceType": "core/franklin/components/block/v1/block/item",
+                "template": {
+                  "name": "Tab",
+                  "model": "tabs-nav-item",
+                  "title": "Tab Name",
+                  "content_headingType": "h3"
                 }
               }
             }

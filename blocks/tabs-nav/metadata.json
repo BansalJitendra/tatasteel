@@ -1,0 +1,38 @@
+{
+  "variantName": "tabs-nav",
+  "baseBlock": "tabs",
+  "version": "1.0.0",
+  "created": "2026-07-09T00:00:00.000Z",
+  "sourceContext": {
+    "originUrl": "https://www.tatasteel.com/",
+    "originPage": "Tata Steel homepage - Products & Media sections",
+    "blockPosition": "middle"
+  },
+  "visualCharacteristics": {
+    "colorScheme": "light",
+    "density": "compact",
+    "purpose": "category-switcher",
+    "imagePattern": "large"
+  },
+  "contentPattern": {
+    "structure": "tab label + panel with gallery/list content",
+    "buttonCount": 0,
+    "imageCount": 0
+  },
+  "reuseGuidance": {
+    "suitableFor": [
+      "region switchers (India/Europe/SEA)",
+      "content category filters (All Updates/Press/Social/News)",
+      "mutually-exclusive selectable content panels"
+    ],
+    "notSuitableFor": [
+      "collapsible FAQ-style content (use accordion)",
+      "content that must all be visible at once"
+    ]
+  },
+  "usage": {
+    "pagesUsing": ["/index"],
+    "reuseCount": 2,
+    "lastUsed": "2026-07-09T00:00:00.000Z"
+  }
+}

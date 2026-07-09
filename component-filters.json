@@ -34,9 +34,39 @@
     ]
   },
   {
+    "id": "cards-investor",
+    "components": [
+      "cards-investor-card"
+    ]
+  },
+  {
+    "id": "cards-media",
+    "components": [
+      "cards-media-card"
+    ]
+  },
+  {
+    "id": "cards-stats",
+    "components": [
+      "cards-stats-card"
+    ]
+  },
+  {
     "id": "cards",
     "components": [
       "card"
+    ]
+  },
+  {
+    "id": "carousel-banner",
+    "components": [
+      "carousel-banner-item"
+    ]
+  },
+  {
+    "id": "carousel-quote",
+    "components": [
+      "carousel-quote-item"
     ]
   },
   {
@@ -82,6 +112,12 @@
     "id": "table-4-columns",
     "components": [
       "table-col-4"
+    ]
+  },
+  {
+    "id": "tabs-nav",
+    "components": [
+      "tabs-nav-item"
     ]
   },
   {

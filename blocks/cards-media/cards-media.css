@@ -1,0 +1,124 @@
+/* cards-media -- Media / press-release cards.
+   Design migrated from tatasteel.com #section5 .media_gallery.
+   Source: white tiles with a soft grey shadow on a #f1f5f8 band,
+   centered headline + a light blue-grey date pinned at the card bottom.
+   Values (typography, shadow, spacing, colors) come from source
+   getComputedStyle extraction. */
+
+.cards-media > ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 20px;
+}
+
+.cards-media > ul > li {
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(255 255 255);
+  box-shadow: rgb(205 205 205) 0 0 5px 0;
+  overflow: hidden;
+}
+
+/* Image cell (cards with a real thumbnail). Source thumbnail box is
+   280x225 (aspect 280/225). Fixed aspect keeps tiles uniform whether or
+   not the remote thumbnail resolves. */
+.cards-media .cards-media-card-image {
+  line-height: 0;
+  background-color: var(--light-color);
+}
+
+.cards-media .cards-media-card-image img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 280 / 225;
+  object-fit: cover;
+}
+
+/* Text box (.media_txt_bx): padding 20px 15px, centered text, grows to
+   fill so dates align near the bottom. */
+.cards-media .cards-media-card-body {
+  flex: 1 1 auto;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 15px;
+  text-align: center;
+}
+
+/* Empty first cell for text-only cards (EDS gives it card-body too but
+   with no children) -- collapse it so the text uses the full tile. */
+.cards-media .cards-media-card-body:empty {
+  display: none;
+}
+
+/* Headline link (title <p> in source: 14.4px / 20.16px, weight 400,
+   near-black, 20px bottom gap). */
+.cards-media .cards-media-card-body p {
+  margin: 0 0 20px;
+  font-size: 14.4px;
+  font-weight: 400;
+  line-height: 20.16px;
+  color: rgb(0 0 0);
+}
+
+/* EDS auto-decorates the standalone headline <p><a> into a .button pill
+   inside a .button-container. Reset it back to a plain centered text
+   link matching the source headline. */
+.cards-media .cards-media-card-body .button-container {
+  margin: 0 0 20px;
+}
+
+.cards-media .cards-media-card-body a,
+main .cards-media .cards-media-card-body a.button:any-link {
+  display: inline;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  font-size: 14.4px;
+  font-weight: 400;
+  line-height: 20.16px;
+  text-align: center;
+  white-space: normal;
+  overflow: visible;
+  text-overflow: clip;
+  color: rgb(0 0 0);
+  text-decoration: none;
+}
+
+.cards-media .cards-media-card-body a:hover,
+main .cards-media .cards-media-card-body a.button:any-link:hover {
+  background-color: transparent;
+  color: var(--link-hover-color);
+  text-decoration: underline;
+}
+
+/* Date -- last paragraph in the body. Source .upload_time: 12px,
+   color rgb(0,43,69), pushed to the bottom of the card. */
+.cards-media .cards-media-card-body p:last-child {
+  margin: auto 0 0;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.4;
+  color: rgb(0 43 69);
+}
+
+.cards-media .cards-media-card-body p:last-child a {
+  color: rgb(0 43 69);
+}
+
+@media (width >= 700px) {
+  .cards-media > ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (width >= 900px) {
+  .cards-media > ul {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+  }
+}

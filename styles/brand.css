@@ -1,0 +1,20 @@
+:root {
+  --heading-font-family: "Lato", "Helvetica Neue", helvetica, arial, sans-serif;
+  --body-font-family: "Lato", "Helvetica Neue", helvetica, arial, sans-serif;
+  --background-color: rgb(255 255 255);
+  --text-color: rgb(51 51 51);
+  --link-color: rgb(35 82 124);
+  --link-hover-color: rgb(61 126 219);
+  --brand-blue: rgb(61 126 219);
+  --section-light-color: rgb(241 245 248);
+  --section-dark-color: rgb(0 0 0);
+  --section-padding: 60px;
+  --content-max-width: 1170px;
+  --nav-height: 113px;
+  --heading-size-xxl: 42px;
+  --heading-size-xl: 30px;
+  --heading-size-l: 18px;
+  --heading-size-m: 20px;
+  --heading-size-s: 18px;
+  --heading-size-xs: 16px;
+}

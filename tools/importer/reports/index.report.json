@@ -1,0 +1,17 @@
+{
+  "status": "success",
+  "url": "https://www.tatasteel.com/",
+  "path": "index",
+  "timestamp": "2026-07-09T08:13:21.409Z",
+  "title": "Steel Supplier & Manufacturer in India | Tata Steel",
+  "template": "homepage",
+  "blocks": [
+    "carousel-banner",
+    "carousel-quote",
+    "cards-stats",
+    "tabs-nav",
+    "tabs-nav",
+    "cards-investor",
+    "cards-media"
+  ]
+}

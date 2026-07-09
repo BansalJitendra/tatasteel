@@ -1,0 +1,70 @@
+{
+  "definitions": [
+    {
+      "title": "Carousel Quote",
+      "id": "carousel-quote",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block",
+            "template": {
+              "name": "Carousel Quote",
+              "filter": "carousel-quote"
+            }
+          }
+        }
+      }
+    },
+    {
+      "title": "Carousel Quote Slide",
+      "id": "carousel-quote-item",
+      "plugins": {
+        "xwalk": {
+          "page": {
+            "resourceType": "core/franklin/components/block/v1/block/item",
+            "template": {
+              "name": "Carousel Quote Slide",
+              "model": "carousel-quote-item"
+            }
+          }
+        }
+      }
+    }
+  ],
+  "models": [
+    {
+      "id": "carousel-quote-item",
+      "fields": [
+        {
+          "component": "reference",
+          "valueType": "string",
+          "name": "media_image",
+          "label": "Background Image",
+          "multi": false
+        },
+        {
+          "component": "text",
+          "valueType": "string",
+          "name": "media_imageAlt",
+          "value": "",
+          "label": "Bacgkround Alt"
+        },
+        {
+          "component": "richtext",
+          "name": "content_text",
+          "value": "",
+          "label": "Text",
+          "valueType": "string"
+        }
+      ]
+    }
+  ],
+  "filters": [
+    {
+      "id": "carousel-quote",
+      "components": [
+        "carousel-quote-item"
+      ]
+    }
+  ]
+}
