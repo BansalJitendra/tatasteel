@@ -71,6 +71,23 @@ function bindEvents(block) {
   });
 }
 
+// xwalk renders an external image `reference` field as a plain <a href>. When
+// the href points to an image, replace the anchor with an <img> so the slide
+// shows the banner rather than a raw link.
+function imageAnchorToImg(cell) {
+  if (!cell) return;
+  cell.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    if (/\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(href)) {
+      const img = document.createElement('img');
+      img.setAttribute('src', href);
+      img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+      img.setAttribute('loading', 'eager');
+      a.replaceWith(img);
+    }
+  });
+}
+
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
@@ -79,6 +96,7 @@ function createSlide(row, slideIndex, carouselId) {
 
   row.querySelectorAll(':scope > div').forEach((column, colIdx) => {
     column.classList.add(`carousel-banner-slide-${colIdx === 0 ? 'image' : 'content'}`);
+    if (colIdx === 0) imageAnchorToImg(column);
     slide.append(column);
   });
 
