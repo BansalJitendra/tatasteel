@@ -185,8 +185,8 @@
 
 @media (width >= 900px) {
   .carousel-banner .carousel-banner-slide {
-    /* wide full-bleed hero band on desktop */
-    min-height: min(52vw, 100vh);
+    /* full-viewport hero band on desktop, matching the source fullPage panel */
+    min-height: 100vh;
   }
 
   .carousel-banner .carousel-banner-navigation-buttons {

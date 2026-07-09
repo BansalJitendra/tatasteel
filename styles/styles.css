@@ -294,8 +294,8 @@ main > .section.investors h3,
 main > .section.media h3,
 main > .section.stats h3 {
   margin: 0 0 32px;
-  font-size: 30px;
-  font-weight: 700;
+  font-size: 18px;
+  font-weight: 400;
   line-height: 1.2;
   text-align: center;
   text-transform: uppercase;
