@@ -316,6 +316,17 @@ main > .section.stats {
   color: #fff;
 }
 
+/* The themed panels are full-bleed on the source, so their default-content
+   wrapper (which holds the centered eyebrow heading) must span the full
+   section width instead of the global 1200px content cap. */
+main > .section.sustainability > .default-content-wrapper,
+main > .section.products > .default-content-wrapper,
+main > .section.investors > .default-content-wrapper,
+main > .section.media > .default-content-wrapper,
+main > .section.stats > .default-content-wrapper {
+  max-width: 100%;
+}
+
 /* Section eyebrow title (h3 "SUSTAINABILITY", "Products & Solutions", etc.) */
 main > .section.sustainability h3,
 main > .section.products h3,
