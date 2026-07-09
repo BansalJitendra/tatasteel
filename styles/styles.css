@@ -267,6 +267,18 @@ main > .section.sustainability {
   color: #fff;
 }
 
+/* Products & Investors are full-viewport panels on the source (fullPage.js).
+   Use a fixed large min-height (not vh, which breaks the Universal Editor's
+   auto-resizing canvas) and vertically center the content so the panel reads
+   like the source's 900px-tall band on a typical desktop screen. */
+main > .section.products,
+main > .section.investors {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 820px;
+}
+
 main > .section.products {
   background-color: #000;
   color: #fff;

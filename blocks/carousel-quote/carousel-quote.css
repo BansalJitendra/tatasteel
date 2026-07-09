@@ -51,8 +51,18 @@ main > .section .carousel-quote-wrapper {
   position: relative;
   width: 100%;
 
-  /* Match source banner aspect ratio (1400 x 790) */
+  /* Source slide is a full-viewport panel (1440 x 900 on desktop). Use a fixed
+     height (not vh, which breaks the Universal Editor canvas) so the slide
+     proportion matches the source rather than the shorter 1400:790 letterbox. */
   aspect-ratio: 1400 / 790;
+  min-height: 460px;
+}
+
+@media (width >= 900px) {
+  .carousel-quote .carousel-quote-slide {
+    aspect-ratio: auto;
+    min-height: 820px;
+  }
 }
 
 /* Image fills the slide (object-fit: cover matches source scalebg) */
