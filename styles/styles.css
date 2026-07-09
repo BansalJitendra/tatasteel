@@ -270,11 +270,28 @@ main > .section.sustainability {
 main > .section.products {
   background-color: #000;
   color: #fff;
+  background-image: url('https://www.tatasteel.com/media/19998/1400x790.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  animation: tata-section-zoom 20s ease-out infinite alternate;
 }
 
 main > .section.investors {
   background-color: #000;
   color: #fff;
+  background-image: url('https://www.tatasteel.com/images/investor_bg.jpg');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  animation: tata-section-zoom 20s ease-out infinite alternate;
+}
+
+/* Slow ken-burns zoom on the section background, matching the source's
+   animated (scalebg) panels. */
+@keyframes tata-section-zoom {
+  from { background-size: 100% auto; }
+  to { background-size: 110% auto; }
 }
 
 main > .section.media {

@@ -5,22 +5,40 @@
    Values (typography, shadow, spacing, colors) come from source
    getComputedStyle extraction. */
 
+/* Horizontal carousel: a row of tiles that scrolls sideways. On desktop
+   8 tiles are shown at once (matching the source media scroller); the rest
+   are reachable by horizontal scroll / swipe. */
 .cards-media > ul {
   list-style: none;
   margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 20px;
+  padding: 0 0 12px;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scroll-behavior: smooth;
 }
 
 .cards-media > ul > li {
   display: flex;
   flex-direction: column;
+  flex: 0 0 80%;
   min-height: 225px;
+  scroll-snap-align: start;
   background-color: rgb(255 255 255);
   box-shadow: rgb(205 205 205) 0 0 5px 0;
   overflow: hidden;
+}
+
+/* Thin scrollbar for the carousel track. */
+.cards-media > ul::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cards-media > ul::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: rgb(0 43 69 / 30%);
 }
 
 /* Image cell (cards with a real thumbnail). Source thumbnail box is
@@ -120,15 +138,16 @@ main .cards-media .cards-media-card-body a.button:any-link:hover {
   color: rgb(0 43 69);
 }
 
+/* Tablet: show ~3 tiles at a time. */
 @media (width >= 700px) {
-  .cards-media > ul {
-    grid-template-columns: repeat(2, 1fr);
+  .cards-media > ul > li {
+    flex-basis: calc((100% - 2 * 10px) / 3);
   }
 }
 
+/* Desktop: show 8 tiles at a time (7 gaps of 10px), rest scroll. */
 @media (width >= 900px) {
-  .cards-media > ul {
-    grid-template-columns: repeat(4, 1fr);
-    gap: 10px;
+  .cards-media > ul > li {
+    flex-basis: calc((100% - 7 * 10px) / 8);
   }
 }
