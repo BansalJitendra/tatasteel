@@ -41,12 +41,14 @@ export default function transform(hookName, element, payload) {
       '.mouse-trail',
     ]);
 
-    // bxSlider chrome: pager + prev/next controls are non-authorable widget UI.
-    // Found in cleaned.html: div.bx-controls, div#bx-pager (section0),
-    // div.bx-pager (section2/3/4), div.bx-controls-direction.
+    // bxSlider chrome: prev/next controls are non-authorable widget UI.
+    // NOTE: #bx-pager (section0) is intentionally NOT removed here — the
+    // carousel-banner parser reads each slide's title (<em>) and href from the
+    // pager's a.thumblink links. It is removed later in afterTransform, once the
+    // parser has consumed it. The section2/3/4 .bx-pager (dot pagers) carry no
+    // authorable content, so they are removed now.
     WebImporter.DOMUtils.remove(element, [
       '.bx-controls',
-      '#bx-pager',
       '.bx-pager',
       '.bx-controls-direction',
       '.bx-clone', // cloned slides bxSlider injects for infinite loop (if present)
@@ -78,10 +80,13 @@ export default function transform(hookName, element, payload) {
     //   div.over_menu  -> top-bar mega navigation (line 4)
     //   div.wrapper > header -> site header/logo/menu toggle (line 1700-1702)
     //   footer -> site footer inside #section6 (line 3125)
+    //   #bx-pager -> section0 hero pager; kept through beforeTransform so the
+    //     carousel-banner parser could read slide titles, now safe to remove.
     WebImporter.DOMUtils.remove(element, [
       '.over_menu',
       'header',
       'footer',
+      '#bx-pager',
     ]);
 
     // The header shell also injected loose <link>/<img> font+logo elements and

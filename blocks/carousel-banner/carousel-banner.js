@@ -151,13 +151,18 @@ export default async function decorate(block) {
       indicator.classList.add('carousel-banner-slide-indicator');
       indicator.dataset.targetSlide = idx;
       // Build a thumbnail nav card (like the source): each card shows the
-      // slide's banner image as a background. The source also renders a title
-      // per card, but the migrated content has no display title (only the
-      // click-through URL), so the card is image-only.
+      // slide's banner image as a background plus the slide title, matching the
+      // original hero pager cards.
       const slideImg = slide.querySelector('.carousel-banner-slide-image img');
       const thumbSrc = slideImg ? (slideImg.getAttribute('src') || '') : '';
-      const label = `${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}`;
-      indicator.innerHTML = `<button type="button" aria-label="${label}"${thumbSrc ? ` style="background-image:url('${thumbSrc}')"` : ''}></button>`;
+      const titleLink = slide.querySelector('.carousel-banner-slide-content a');
+      const title = titleLink ? (titleLink.textContent || '').trim() : '';
+      const hasTitle = title && !/^https?:\/\//.test(title);
+      const label = hasTitle
+        ? title
+        : `${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}`;
+      const titleSpan = hasTitle ? `<span class="carousel-banner-thumb-title">${title}</span>` : '';
+      indicator.innerHTML = `<button type="button" aria-label="${label}"${thumbSrc ? ` style="background-image:url('${thumbSrc}')"` : ''}>${titleSpan}</button>`;
       slideIndicators.append(indicator);
     }
     row.remove();
