@@ -82,6 +82,19 @@ function createSlide(row, slideIndex, carouselId) {
     slide.append(column);
   });
 
+  // In xwalk/JCR delivery (and when the Universal Editor re-decorates the
+  // block) the media_image reference renders as a bare <a href="...jpg"> rather
+  // than a <picture>. Convert the image-cell anchor to an <img> so the slide
+  // image is visible everywhere (delivery, preview, and UE).
+  const imageCell = slide.querySelector('.carousel-quote-slide-image');
+  const imageAnchor = imageCell?.querySelector('a[href]');
+  if (imageAnchor && /\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(imageAnchor.getAttribute('href') || '')) {
+    const img = document.createElement('img');
+    img.setAttribute('src', imageAnchor.getAttribute('href'));
+    img.setAttribute('alt', (imageAnchor.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+    imageAnchor.replaceWith(img);
+  }
+
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) {
     slide.setAttribute('aria-labelledby', labeledBy.getAttribute('id'));

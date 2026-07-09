@@ -5,6 +5,20 @@ import { moveInstrumentation } from '../../scripts/scripts.js';
 let tabBlockCnt = 0;
 
 export default async function decorate(block) {
+  // In xwalk/JCR delivery (and when the Universal Editor re-decorates the
+  // block) the content_image reference in a tab panel renders as a bare
+  // <a href="...png">, not a <picture>. Convert those anchors to <img> so the
+  // region/panel image is visible everywhere (delivery, preview, and UE).
+  block.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    if (/\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(href) && !a.closest('picture')) {
+      const img = document.createElement('img');
+      img.setAttribute('src', href);
+      img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+      a.replaceWith(img);
+    }
+  });
+
   // build tablist
   const tablist = document.createElement('div');
   tablist.className = 'tabs-nav-list';

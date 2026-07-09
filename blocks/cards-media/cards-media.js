@@ -2,6 +2,22 @@ import { createOptimizedPicture } from '../../scripts/aem.js';
 import { moveInstrumentation } from '../../scripts/scripts.js';
 
 export default function decorate(block) {
+  // In xwalk/JCR delivery (and when the Universal Editor re-decorates the
+  // block) an image reference field renders as a bare <a href="...jpg">, not a
+  // <picture>. Convert those anchors to <picture><img> so the image-cell
+  // detection below works and the thumbnail is visible everywhere.
+  block.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    if (/\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(href) && !a.closest('picture')) {
+      const picture = document.createElement('picture');
+      const img = document.createElement('img');
+      img.setAttribute('src', href);
+      img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+      picture.append(img);
+      a.replaceWith(picture);
+    }
+  });
+
   /* change to ul, li */
   const ul = document.createElement('ul');
   [...block.children].forEach((row) => {
