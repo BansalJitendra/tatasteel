@@ -415,7 +415,6 @@ var CustomImportScript = (() => {
       ]);
       WebImporter.DOMUtils.remove(element, [
         ".bx-controls",
-        "#bx-pager",
         ".bx-pager",
         ".bx-controls-direction",
         ".bx-clone"
@@ -434,7 +433,8 @@ var CustomImportScript = (() => {
       WebImporter.DOMUtils.remove(element, [
         ".over_menu",
         "header",
-        "footer"
+        "footer",
+        "#bx-pager"
       ]);
       WebImporter.DOMUtils.remove(element, [
         "link",
