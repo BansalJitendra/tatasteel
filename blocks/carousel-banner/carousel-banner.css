@@ -48,9 +48,11 @@
   width: 100%;
   scroll-snap-align: start;
 
-  /* Source banner is a full-bleed hero; available assets are mobile portrait
-     images so use a tall aspect on small screens, a wide hero band on desktop. */
-  min-height: 62vh;
+  /* Fixed hero-band heights (NOT vh): viewport units inside the Universal
+     Editor's auto-resizing canvas iframe create a height feedback loop that
+     renders as a blank page with infinite scroll. Fixed px heights are stable
+     in both UE and normal delivery. */
+  min-height: 320px;
 }
 
 /* --- Image cell fills the whole slide (background-style, full-bleed cover) --- */
@@ -192,8 +194,8 @@
 
 @media (width >= 900px) {
   .carousel-banner .carousel-banner-slide {
-    /* Image fills the viewport height up to the 89px thumbnail nav band, so
-       image + nav together span the full viewport like the source hero. */
-    min-height: calc(100vh - 89px);
+    /* Desktop hero band. Fixed px (not vh) to stay stable inside the Universal
+       Editor auto-resizing iframe; ~viewport-tall on a typical 900px screen. */
+    min-height: 600px;
   }
 }
