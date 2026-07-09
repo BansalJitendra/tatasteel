@@ -1,0 +1,11 @@
+{
+  "type": "xwalk",
+  "sites": {
+    "tatasteel": {
+      "previewOrg": "bansaljitendra",
+      "previewSite": "tatasteel",
+      "baseUrl": "https://www.tatasteel.com/",
+      "libraryUrl": "https://main--sta-xwalk-boilerplate--aemysites.aem.page/tools/sidekick/library.json"
+    }
+  }
+}
