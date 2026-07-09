@@ -1,34 +1,47 @@
 /* Block: tabs-nav
- * Region/category selector tabs (Products & Solutions, Media).
- * Source: tatasteel.com product gallery -- centered tiles with a product
- * image and a label below. Migrated to an EDS tabs pattern: a horizontal
- * tab bar (region labels) + a single active panel showing the product
- * image and its link, centered.
+ * Region/category selector tabs. Used in two themed sections:
+ *   - Products & Solutions (black bg): region switcher (India / Europe /
+ *     South East Asia). Each panel shows a 118x117 product image + label.
+ *   - Media (light-grey bg): category filter tabs (Press Release / In The
+ *     News), label-only panels.
+ *
+ * The block must read correctly on BOTH backgrounds, so tab labels and the
+ * panel label inherit the section's foreground color (currentColor) for
+ * their resting state (white on the dark products band, dark #434343 on the
+ * light media band). The active/hover state is always brand blue.
+ *
+ * Source computed styles (tatasteel.com):
+ *   products .prod_name: Lato 30px/36px, weight 400, color #fff, centered
+ *   products .prod_img img: 118 x 117, object-fit: fill
+ *   products .prod_box: width 118px, text-align center, margin-bottom 30px
+ *   media .filter_link a: Lato 14px/19.6px, weight 400, color rgb(67,67,67)
+ *   media .filter_link a.active (::before overlay): color rgb(66,128,216)
+ *   media li: margin 0 20px (40px gap), ul centered, no underline/border
  */
 
 /* --- Tab bar --- */
 .tabs-nav .tabs-nav-list {
   display: flex;
   flex-wrap: wrap;
-  gap: 0;
+  gap: 0 40px;
   justify-content: center;
+  align-items: center;
   margin: 0 0 32px;
   padding: 0;
-  border-bottom: 1px solid #dadada;
   max-width: 100%;
-  overflow-x: auto;
 }
 
-/* --- Tab label (region selector) --- */
+/* --- Tab label (region / category selector) ---
+ * Resting color inherits from the section (currentColor): white on the
+ * dark products band, dark on the light media band. */
 .tabs-nav .tabs-nav-list button.tabs-nav-tab {
   flex: 0 0 auto;
   margin: 0;
   border: none;
-  border-bottom: 3px solid transparent;
   border-radius: 0;
-  padding: 12px 24px;
+  padding: 12px 0;
   background-color: transparent;
-  color: var(--text-color);
+  color: currentcolor;
   font-family: var(--body-font-family);
   font-size: 18px;
   font-weight: 400;
@@ -39,7 +52,7 @@
   overflow: visible;
   text-overflow: unset;
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s;
+  transition: color 0.2s;
 }
 
 .tabs-nav .tabs-nav-list button.tabs-nav-tab:hover,
@@ -49,13 +62,11 @@
 }
 
 .tabs-nav .tabs-nav-list button.tabs-nav-tab[aria-selected='true'] {
-  border-bottom-color: var(--brand-blue);
   color: var(--brand-blue);
-  font-weight: 700;
   cursor: default;
 }
 
-/* --- Panel: product image + link, centered --- */
+/* --- Panel --- */
 .tabs-nav .tabs-nav-panel {
   margin: 0;
   padding: 0;
@@ -79,6 +90,7 @@
   margin: 0;
 }
 
+/* Products: product image 118 x 117 (source used object-fit: fill). */
 .tabs-nav .tabs-nav-panel picture {
   display: block;
   line-height: 0;
@@ -86,13 +98,14 @@
 
 .tabs-nav .tabs-nav-panel img {
   width: 118px;
-  height: auto;
-  object-fit: contain;
+  height: 117px;
+  object-fit: fill;
 }
 
 /* The panel link is auto-decorated by EDS into a.button. Reset the pill
- * styling and render it as the plain product label (30px, Lato) that
- * appeared beneath the tile on the source. */
+ * styling and render it as the plain product/category label (30px Lato)
+ * that appeared beneath the tile on the source. Color inherits from the
+ * section (white on products) so it is legible on the dark band. */
 .tabs-nav .tabs-nav-panel p.button-container {
   margin: 0;
 }
@@ -104,7 +117,7 @@
   border-radius: 0;
   padding: 0;
   background-color: transparent;
-  color: var(--text-color);
+  color: currentcolor;
   font-family: var(--body-font-family);
   font-size: 24px;
   font-weight: 400;
@@ -124,10 +137,29 @@
   text-decoration: none;
 }
 
+/* Media (label-only) panels: match the 14px filter label typography and keep
+ * the resting color inheriting from the light section. */
+.tabs-nav .tabs-nav-panel p:not(.button-container) {
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  line-height: 1.4;
+  color: currentcolor;
+}
+
+/* Media (light band) uses the compact 14px filter-tab typography from the
+ * source; products keeps the larger region-label size. */
+.section.media .tabs-nav .tabs-nav-list button.tabs-nav-tab {
+  font-size: 14px;
+  line-height: 1.4;
+}
+
 @media (width >= 900px) {
   .tabs-nav .tabs-nav-list button.tabs-nav-tab {
-    padding: 14px 40px;
     font-size: 20px;
+  }
+
+  .section.media .tabs-nav .tabs-nav-list button.tabs-nav-tab {
+    font-size: 14px;
   }
 
   .tabs-nav .tabs-nav-panel a.button:any-link {

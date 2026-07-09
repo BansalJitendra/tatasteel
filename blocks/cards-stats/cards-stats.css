@@ -1,12 +1,15 @@
 /* Block: cards-stats
-   A full-width stats band: employee montage background image (with the
-   "Great Place to Work Certified" badge) overlaid with a dark-blue tint and
-   centered white headline text. Emphasized words render in amber.
-   Values extracted from source #section6 div.stats_box computed styles. */
+   A full-width stats band: near-black (#1d1d1d) band carrying an employee
+   montage / "Great Place to Work Certified" badge image as a full-bleed
+   cover background, overlaid with centered white headline text. Emphasized
+   words render in amber. Values extracted from source #section6
+   div.stats_box (band: rgb(29,29,29); text: 32px/44.8px white, centered;
+   strong: rgb(255,161,0) 700). The source applies NO tint over the image;
+   the montage itself is a dark duotone, so the band stays dark. */
 
 :root {
   --stats-highlight-color: rgb(255 161 0);
-  --stats-overlay-color: rgb(35 82 124); /* #23527c section band tint */
+  --stats-band-color: #1d1d1d;
 }
 
 /* Break out of the section's max-width so the band spans full width. */
@@ -30,11 +33,13 @@
   position: relative;
   display: block;
   min-height: 260px;
-  background-color: var(--stats-overlay-color);
+  background-color: var(--stats-band-color);
   overflow: hidden;
 }
 
-/* Badge / employee-montage image fills the whole band as a background. */
+/* Badge / employee-montage image fills the whole band as a background.
+   The source montage is already a dark duotone, so no CSS tint is applied.
+   If the image 404s (e.g. on localhost), the dark band shows through. */
 .cards-stats .cards-stats-card-image {
   position: absolute;
   inset: 0;
@@ -59,15 +64,6 @@
   height: 100%;
   object-fit: cover;
   object-position: center;
-}
-
-/* Dark-blue tint over the image so white text stays legible. */
-.cards-stats .cards-stats-card-image::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-color: var(--stats-overlay-color);
-  opacity: 0.62;
 }
 
 /* Centered text overlay, vertically centered within the band. */

@@ -17,14 +17,18 @@
 .cards-media > ul > li {
   display: flex;
   flex-direction: column;
+  min-height: 225px;
   background-color: rgb(255 255 255);
   box-shadow: rgb(205 205 205) 0 0 5px 0;
   overflow: hidden;
 }
 
 /* Image cell (cards with a real thumbnail). Source thumbnail box is
-   280x225 (aspect 280/225). Fixed aspect keeps tiles uniform whether or
-   not the remote thumbnail resolves. */
+   280x225. In the source layout the image sits BESIDE the text; here it
+   is stacked on top, so we use a shorter, fixed aspect box to keep the
+   overall tile close to the compact ~225px source proportion. The fixed
+   aspect reserves a consistent height even when the remote thumbnail is
+   missing/404, so cards never collapse or look ragged. */
 .cards-media .cards-media-card-image {
   line-height: 0;
   background-color: var(--light-color);
@@ -33,7 +37,7 @@
 .cards-media .cards-media-card-image img {
   display: block;
   width: 100%;
-  aspect-ratio: 280 / 225;
+  aspect-ratio: 16 / 9;
   object-fit: cover;
 }
 
@@ -43,6 +47,7 @@
   flex: 1 1 auto;
   display: flex;
   flex-direction: column;
+  justify-content: center;
   padding: 20px 15px;
   text-align: center;
 }
@@ -72,7 +77,7 @@
 
 .cards-media .cards-media-card-body a,
 main .cards-media .cards-media-card-body a.button:any-link {
-  display: inline;
+  display: -webkit-box;
   margin: 0;
   padding: 0;
   border: 0;
@@ -83,10 +88,15 @@ main .cards-media .cards-media-card-body a.button:any-link {
   line-height: 20.16px;
   text-align: center;
   white-space: normal;
-  overflow: visible;
+  overflow: hidden;
   text-overflow: clip;
   color: rgb(0 0 0);
   text-decoration: none;
+
+  /* Clamp long headlines to keep tiles compact/uniform like the source
+     ~225px tiles, matching the source which truncates overflowing titles. */
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .cards-media .cards-media-card-body a:hover,

@@ -150,7 +150,14 @@ export default async function decorate(block) {
       const indicator = document.createElement('li');
       indicator.classList.add('carousel-banner-slide-indicator');
       indicator.dataset.targetSlide = idx;
-      indicator.innerHTML = `<button type="button" aria-label="${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}"></button>`;
+      // Build a thumbnail nav card (like the source): each card shows the
+      // slide's banner image as a background. The source also renders a title
+      // per card, but the migrated content has no display title (only the
+      // click-through URL), so the card is image-only.
+      const slideImg = slide.querySelector('.carousel-banner-slide-image img');
+      const thumbSrc = slideImg ? (slideImg.getAttribute('src') || '') : '';
+      const label = `${placeholders.showSlide || 'Show Slide'} ${idx + 1} ${placeholders.of || 'of'} ${rows.length}`;
+      indicator.innerHTML = `<button type="button" aria-label="${label}"${thumbSrc ? ` style="background-image:url('${thumbSrc}')"` : ''}></button>`;
       slideIndicators.append(indicator);
     }
     row.remove();

@@ -10,6 +10,18 @@
   display: block;
 }
 
+/* Original sustainability banner is full-bleed (edge-to-edge). Break the block
+   out of the section's 1200px max-width container so the slide spans the
+   viewport width like the source slider. */
+main > .section .carousel-quote-wrapper {
+  max-width: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
 .carousel-quote .carousel-quote-slides-container {
   position: relative;
 }
