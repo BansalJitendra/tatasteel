@@ -1,10 +1,9 @@
 /* Carousel Banner -- full-bleed hero slideshow.
    Design migrated from tatasteel.com homepage (#section0 .banner .banner_slideshow, bxSlider).
-   Source: full-viewport slideshow, images cover the banner area, whole slide is a
-   click-through link, faint prev/next chevrons, and a centered bottom band of
-   thumbnail navigation cards (252x89 each, dark overlay, active card gets a 2px
-   blue top bar). The source thumbnail titles are not present in the migrated
-   content (only the click-through URL), so the cards are image-only. */
+   Source: the banner image fills the viewport up to a centered row of thumbnail
+   navigation cards (252x89 each, dark overlay, active card gets a 2px blue top
+   bar and shows the slide title). Hovering a thumbnail switches the banner.
+   No left/right arrows. Whole slide is a click-through link. */
 
 /* --- Full-bleed: break out of the section max-width (1200px) wrapper --- */
 .carousel-banner-wrapper {
@@ -99,15 +98,13 @@
   border: 0;
 }
 
-/* --- Thumbnail navigation band (bottom, centered) ---
-   Source (tatasteel.com) renders a centered row of thumbnail cards at the
-   bottom of the hero. Each card is 252px wide x 89px tall, background image
-   cover, with a dark overlay; the active card gets a 2px blue bar on top. */
+/* --- Thumbnail navigation band (below the banner image, centered) ---
+   Source (tatasteel.com) renders a centered row of thumbnail cards beneath the
+   hero banner. Each card is 252px wide x 89px tall, background image cover,
+   with a dark overlay; the active card gets a 2px blue bar on top. The band
+   sits BELOW the image (image takes the full height up to the navigation). */
 .carousel-banner nav[aria-label] {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  position: relative;
   z-index: 3;
 }
 
@@ -193,77 +190,10 @@
   background-color: rgb(18 31 43 / 15%);
 }
 
-/* --- Prev / next navigation arrows --- */
-.carousel-banner .carousel-banner-navigation-buttons {
-  position: absolute;
-  top: 50%;
-  left: 12px;
-  right: 12px;
-  transform: translateY(-50%);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  z-index: 3;
-  pointer-events: none;
-}
-
-/* stylelint-disable-next-line no-descending-specificity */
-.carousel-banner .carousel-banner-navigation-buttons button {
-  position: relative;
-  width: 40px;
-  height: 40px;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background-color: transparent;
-  pointer-events: auto;
-  opacity: 0.85;
-  transition: opacity 0.2s;
-  cursor: pointer;
-}
-
-.carousel-banner .carousel-banner-navigation-buttons button:hover,
-.carousel-banner .carousel-banner-navigation-buttons button:focus-visible {
-  opacity: 1;
-  background-color: transparent;
-}
-
-/* Thin white chevrons (source shows faint chevrons at the vertical center). */
-/* stylelint-disable-next-line no-descending-specificity */
-.carousel-banner .carousel-banner-navigation-buttons button::after {
-  display: block;
-  content: '';
-  width: 16px;
-  height: 16px;
-  position: absolute;
-  top: 50%;
-  left: calc(50% + 3px);
-  border: 3px solid #fff;
-  border-bottom: 0;
-  border-left: 0;
-  filter: drop-shadow(0 0 2px rgb(0 0 0 / 35%));
-  transform: translate(-50%, -50%) rotate(-135deg);
-}
-
-.carousel-banner .carousel-banner-navigation-buttons button.slide-next::after {
-  left: calc(50% - 2px);
-  transform: translate(-50%, -50%) rotate(45deg);
-}
-
 @media (width >= 900px) {
   .carousel-banner .carousel-banner-slide {
-    /* full-viewport hero band on desktop, matching the source fullPage panel */
-    min-height: 100vh;
-  }
-
-  .carousel-banner .carousel-banner-navigation-buttons {
-    left: 24px;
-    right: 24px;
-  }
-
-  .carousel-banner .carousel-banner-navigation-buttons button {
-    width: 48px;
-    height: 48px;
+    /* Image fills the viewport height up to the 89px thumbnail nav band, so
+       image + nav together span the full viewport like the source hero. */
+    min-height: calc(100vh - 89px);
   }
 }
