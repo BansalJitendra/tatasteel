@@ -31,6 +31,12 @@ export default function decorate(block) {
     ul.append(li);
   });
   ul.querySelectorAll('picture > img').forEach((img) => {
+    // Only run the AEM image optimizer on same-origin media. External absolute
+    // URLs must keep their full src — the optimizer rewrites them to a broken
+    // relative path, so the image 404s.
+    const src = img.getAttribute('src') || '';
+    const isExternal = /^https?:\/\//i.test(src) && !src.startsWith(window.location.origin);
+    if (isExternal) return;
     const optimizedPic = createOptimizedPicture(img.src, img.alt, false, [{ width: '750' }]);
     moveInstrumentation(img, optimizedPic.querySelector('img'));
     img.closest('picture').replaceWith(optimizedPic);
