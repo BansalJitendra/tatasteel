@@ -100,8 +100,33 @@ function a11yLinks(main) {
  * @param {Element} main The main element
  */
 // eslint-disable-next-line import/prefer-default-export
+/**
+ * xwalk renders an external image `reference` field as a bare <a href> whose
+ * text is the image URL. Convert those anchors into <img> elements so blocks
+ * that expect an image (carousel, cards, tabs) render the picture, not a link.
+ * @param {Element} main
+ */
+function decorateExternalImages(main) {
+  const isImageUrl = (v) => /\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(v || '');
+  main.querySelectorAll('a[href]').forEach((a) => {
+    const href = a.getAttribute('href') || '';
+    const text = (a.textContent || '').trim();
+    // Only convert anchors that are clearly image references: the href is an
+    // image URL AND the visible text is empty or the same URL (the xwalk
+    // reference-field artifact), never real text links.
+    if (isImageUrl(href) && (text === '' || text === href)) {
+      const img = document.createElement('img');
+      img.setAttribute('src', href);
+      img.setAttribute('alt', '');
+      img.setAttribute('loading', 'lazy');
+      a.replaceWith(img);
+    }
+  });
+}
+
 export function decorateMain(main) {
   // hopefully forward compatible button decoration
+  decorateExternalImages(main);
   decorateButtons(main);
   decorateIcons(main);
   buildAutoBlocks(main);
