@@ -80,6 +80,20 @@ function createSlide(row, slideIndex, carouselId) {
     slide.append(column);
   });
 
+  // The image cell's media_image reference renders as a bare <a href="...jpg">
+  // in xwalk (JCR) delivery, and as a <picture> in doc delivery. In the
+  // Universal Editor the block is re-decorated without the global
+  // decorateExternalImages pass, so convert an image-URL anchor to an <img>
+  // here so the banner is always visible (delivery, preview, and UE alike).
+  const imageCell = slide.querySelector('.carousel-banner-slide-image');
+  const imageAnchor = imageCell?.querySelector('a[href]');
+  if (imageAnchor && /\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(imageAnchor.getAttribute('href') || '')) {
+    const img = document.createElement('img');
+    img.setAttribute('src', imageAnchor.getAttribute('href'));
+    img.setAttribute('alt', (imageAnchor.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+    imageAnchor.replaceWith(img);
+  }
+
   // The content cell only carries the slide's click-through URL (not display
   // copy). Turn the whole slide into a click-through link and hide the raw URL.
   const contentCell = slide.querySelector('.carousel-banner-slide-content');
