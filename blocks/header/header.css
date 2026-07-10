@@ -1,12 +1,18 @@
 /* header and nav layout */
 header .nav-wrapper {
-  /* Transparent over the hero so the banner image shows through behind the
-     fixed nav band, matching the source. When the menu overlay is opened the
-     panel paints its own background. */
-  background-color: transparent;
+  /* Semi-transparent dark scrim over the hero: the banner shows through but the
+     logo and nav links stay legible, matching the source's translucent nav bar.
+     When the menu overlay is opened the panel paints its own solid background. */
+  background-color: rgb(0 0 0 / 35%);
   width: 100%;
   z-index: 2;
   position: fixed;
+}
+
+/* When the hamburger menu is open, the overlay panel needs a solid backdrop, so
+   drop the translucent scrim on the wrapper. */
+header .nav-wrapper:has(nav[aria-expanded='true']) {
+  background-color: var(--background-color);
 }
 
 header nav {
