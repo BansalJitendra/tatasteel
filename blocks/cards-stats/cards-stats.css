@@ -75,7 +75,9 @@ main > .section.stats > .default-content-wrapper {
   object-position: center;
 }
 
-/* Centered text overlay, vertically centered within the band. */
+/* Centered text overlay, vertically centered within the band. The source keeps
+   the copy in a narrow column so it wraps to ~3 lines rather than stretching
+   full width. */
 .cards-stats .cards-stats-card-body {
   position: relative;
   z-index: 1;
@@ -83,7 +85,7 @@ main > .section.stats > .default-content-wrapper {
   align-items: center;
   justify-content: center;
   min-height: 260px;
-  max-width: 940px;
+  max-width: 640px;
   margin: 0 auto;
   padding: 32px 15px;
   text-align: center;
