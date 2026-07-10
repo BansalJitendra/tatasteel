@@ -49,7 +49,14 @@ var CustomImportScript = (() => {
       const m = style.match(/background-image\s*:\s*url\(\s*['"]?([^'")]+)['"]?\s*\)/i);
       return m ? m[1] : "";
     };
-    const slideImageUrl = (li) => {
+    const DESKTOP_IMAGE_BY_HREF = [
+      { match: "119th-annual-general-meeting", url: "https://www.tatasteel.com/media/26156/ts-119-agm-banner.jpg" }
+    ];
+    const slideImageUrl = (li, href) => {
+      if (href) {
+        const mapped = DESKTOP_IMAGE_BY_HREF.find((m) => href.includes(m.match));
+        if (mapped) return mapped.url;
+      }
       if (!li) return "";
       const desktop = li.querySelector(".banner_images.hidden-xs");
       const mobile = li.querySelector(".banner_images.visible-xs");
@@ -64,7 +71,7 @@ var CustomImportScript = (() => {
       if (href && !liByHref.has(href)) liByHref.set(href, li);
     });
     const buildRow = (href, labelText, li) => {
-      const imgUrl = slideImageUrl(li);
+      const imgUrl = slideImageUrl(li, href);
       const imageCell = document.createDocumentFragment();
       imageCell.appendChild(document.createComment(" field:media_image "));
       if (imgUrl) {
