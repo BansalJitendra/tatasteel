@@ -174,10 +174,15 @@ async function buildBreadcrumbs() {
  * @param {Element} block The header block element
  */
 export default async function decorate(block) {
-  // load nav as fragment
+  // load nav as fragment. The nav doc lives under /content (co-located with
+  // the page content); prefer it, then fall back to the nav metadata / default.
   const navMeta = getMetadata('nav');
-  const navPath = navMeta ? new URL(navMeta, window.location).pathname : '/nav';
-  const fragment = await loadFragment(navPath);
+  let navPath = navMeta ? new URL(navMeta, window.location).pathname : '/content/nav';
+  let fragment = await loadFragment(navPath);
+  if (!fragment || !fragment.firstElementChild) {
+    navPath = '/nav';
+    fragment = await loadFragment(navPath);
+  }
 
   // decorate nav DOM
   block.textContent = '';

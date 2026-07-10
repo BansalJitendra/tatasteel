@@ -1,20 +1,59 @@
+/* Tata Steel footer: dark band with policy links, social links, and copyright. */
 footer {
-  background-color: var(--light-color);
+  background-color: #1d1d1d;
+  color: #fff;
   font-size: var(--body-font-size-xs);
 }
 
-footer .footer > div {
+footer .footer {
   margin: auto;
-  max-width: 1200px;
-  padding: 40px 24px 24px;
+  max-width: var(--content-max-width, 1200px);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 28px 24px;
+  text-align: center;
 }
 
 footer .footer p {
   margin: 0;
+  color: #cfcfcf;
+}
+
+footer .footer ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px 24px;
+}
+
+footer .footer ul li {
+  margin: 0;
+}
+
+footer .footer a:any-link {
+  color: #fff;
+  text-decoration: none;
+}
+
+footer .footer a:hover {
+  color: var(--brand-blue, #3d7edb);
+  text-decoration: underline;
 }
 
 @media (width >= 900px) {
-  footer .footer > div {
-    padding: 40px 32px 24px;
+  footer .footer {
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 32px;
+    text-align: left;
+  }
+
+  footer .footer ul {
+    justify-content: flex-start;
   }
 }
