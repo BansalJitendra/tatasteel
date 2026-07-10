@@ -237,10 +237,10 @@ export default async function decorate(block) {
     </button>`;
   hamburger.addEventListener('click', () => toggleMenu(nav, navSections));
   nav.prepend(hamburger);
+  // Tata Steel uses a hamburger-driven overlay menu at every width, so the nav
+  // always starts collapsed (never force-expanded on desktop).
   nav.setAttribute('aria-expanded', 'false');
-  // prevent mobile nav behavior on window resize
-  toggleMenu(nav, navSections, isDesktop.matches);
-  isDesktop.addEventListener('change', () => toggleMenu(nav, navSections, isDesktop.matches));
+  toggleMenu(nav, navSections, false);
 
   const navWrapper = document.createElement('div');
   navWrapper.className = 'nav-wrapper';

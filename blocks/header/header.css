@@ -128,12 +128,8 @@ header nav[aria-expanded='true'] .nav-hamburger-icon::after {
   transform: rotate(-45deg);
 }
 
-@media (width >= 900px) {
-  header nav .nav-hamburger {
-    display: none;
-    visibility: hidden;
-  }
-}
+/* Tata Steel shows the main menu behind a hamburger on ALL screen sizes
+   (desktop included), so the hamburger stays visible at every width. */
 
 /* brand */
 header .nav-brand {
@@ -188,101 +184,69 @@ header nav .nav-sections ul > li > ul > li {
   font-weight: 400;
 }
 
+/* Tata Steel's main navigation opens as a hamburger-driven overlay at every
+   width. When the nav is expanded, the sections panel drops from under the
+   header as a full-width overlay (rather than the inline horizontal bar). */
+header nav[aria-expanded='true'] .nav-sections {
+  position: absolute;
+  top: var(--nav-height);
+  left: 0;
+  right: 0;
+  display: block;
+  visibility: visible;
+  max-height: calc(100dvh - var(--nav-height));
+  overflow-y: auto;
+  padding: 16px 24px 24px;
+  background-color: var(--background-color);
+  box-shadow: 0 8px 16px rgb(0 0 0 / 15%);
+  z-index: 3;
+}
+
 @media (width >= 900px) {
+  /* Keep the collapsed state hidden on desktop too — the menu only appears
+     when the hamburger is toggled, matching the source. */
   header nav .nav-sections {
-    display: block;
-    visibility: visible;
-    white-space: nowrap;
+    display: none;
+    visibility: hidden;
   }
 
   header nav[aria-expanded='true'] .nav-sections {
     align-self: unset;
+    white-space: normal;
   }
 
-  header nav .nav-sections .nav-drop {
-    position: relative;
-    padding-right: 16px;
-    cursor: pointer;
-  }
-
-  header nav .nav-sections .nav-drop::after {
-    content: '';
-    display: inline-block;
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    transform: rotate(135deg);
-    width: 6px;
-    height: 6px;
-    border: 2px solid currentcolor;
-    border-radius: 0 1px 0 0;
-    border-width: 2px 2px 0 0;
-  }
-
-  header nav .nav-sections .nav-drop[aria-expanded='true']::after {
-    top: unset;
-    bottom: 2px;
-    transform: rotate(315deg);
-  }
-
-  header nav .nav-sections ul {
+  /* Lay the top-level sections out in columns inside the overlay panel. */
+  header nav[aria-expanded='true'] .nav-sections .default-content-wrapper > ul {
     display: flex;
-    gap: 24px;
-    margin: 0;
+    flex-wrap: wrap;
+    gap: 24px 48px;
+    margin: auto;
+    max-width: 1264px;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li {
+  header nav[aria-expanded='true'] .nav-sections .default-content-wrapper > ul > li {
     flex: 0 1 auto;
-    position: relative;
     font-weight: 600;
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li:hover,
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] {
-    color: var(--brand-blue);
+  header nav[aria-expanded='true'] .nav-sections .default-content-wrapper > ul > li > ul {
+    display: block;
+    margin-top: 8px;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul a:any-link {
     color: var(--text-color);
     text-decoration: none;
+    font-weight: 400;
   }
 
   header nav .nav-sections .default-content-wrapper > ul > li > ul a:hover {
     color: var(--brand-blue);
   }
 
-  header nav .nav-sections .default-content-wrapper > ul > li > ul {
-    display: none;
-    position: relative;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li[aria-expanded='true'] > ul {
-    display: block;
-    position: absolute;
-    left: -24px;
-    width: 200px;
-    top: 150%;
-    padding: 16px;
-    background-color: var(--light-color);
-    white-space: initial;
-    z-index: 1;
-  }
-
-  header nav .nav-sections .default-content-wrapper > ul > li > ul::before {
-    content: '';
-    position: absolute;
-    top: -8px;
-    left: 16px;
-    width: 0;
-    height: 0;
-    border-left: 8px solid transparent;
-    border-right: 8px solid transparent;
-    border-bottom: 8px solid var(--light-color);
-  }
-
   /* stylelint-disable-next-line no-descending-specificity */
   header nav .nav-sections .default-content-wrapper > ul > li > ul > li {
-    padding: 8px 0;
+    padding: 4px 0;
   }
 }
 
