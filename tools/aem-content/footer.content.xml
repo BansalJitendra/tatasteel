@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jcr:root xmlns:jcr="http://www.jcp.org/jcr/1.0" xmlns:nt="http://www.jcp.org/jcr/nt/1.0" xmlns:cq="http://www.day.com/jcr/cq/1.0" xmlns:sling="http://sling.apache.org/jcr/sling/1.0" jcr:primaryType="cq:Page">
+  <jcr:content cq:template="/libs/core/franklin/templates/page" sling:resourceType="core/franklin/components/page/v1/page" jcr:primaryType="cq:PageContent">
+    <root jcr:primaryType="nt:unstructured" sling:resourceType="core/franklin/components/root/v1/root">
+      <section sling:resourceType="core/franklin/components/section/v1/section" jcr:primaryType="nt:unstructured">
+        <text sling:resourceType="core/franklin/components/text/v1/text" jcr:primaryType="nt:unstructured" text="&lt;ul&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.tatasteel.com/disclaimer/&quot;&gt;Disclaimer&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.tatasteel.com/privacy-policy/&quot;&gt;Privacy Policy&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.tatasteel.com/cookie-policy/&quot;&gt;Cookie Policy&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.tatasteel.com/sitemap/&quot;&gt;Sitemap&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;"/>
+      </section>
+      <section_1 sling:resourceType="core/franklin/components/section/v1/section" jcr:primaryType="nt:unstructured">
+        <text sling:resourceType="core/franklin/components/text/v1/text" jcr:primaryType="nt:unstructured" text="&lt;ul&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.facebook.com/TataSteelLtd/&quot;&gt;Facebook&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://twitter.com/Tatasteelltd&quot;&gt;Twitter&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.linkedin.com/company/tatasteelltd&quot;&gt;LinkedIn&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.youtube.com/user/Thetatasteel/&quot;&gt;YouTube&lt;/a&gt;&lt;/li&gt;
+                    &lt;li&gt;&lt;a href&#x3D;&quot;https://www.instagram.com/tatasteelltd/&quot;&gt;Instagram&lt;/a&gt;&lt;/li&gt;
+                    &lt;/ul&gt;"/>
+      </section_1>
+      <section_2 sling:resourceType="core/franklin/components/section/v1/section" jcr:primaryType="nt:unstructured">
+        <text sling:resourceType="core/franklin/components/text/v1/text" jcr:primaryType="nt:unstructured" text="&lt;p&gt;© Copyright Tata Steel 2026. All rights reserved.&lt;/p&gt;"/>
+      </section_2>
+    </root>
+  </jcr:content>
+</jcr:root>
