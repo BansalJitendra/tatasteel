@@ -25,7 +25,14 @@ export default function decorate(block) {
     moveInstrumentation(row, li);
     while (row.firstElementChild) li.append(row.firstElementChild);
     [...li.children].forEach((div) => {
-      if (div.children.length === 1 && div.querySelector('picture')) div.className = 'cards-stats-card-image';
+      // An image cell holds only a single media element (a <picture> or a bare
+      // <img>, possibly wrapped in a <p>) and no other text. Everything else is
+      // the body copy. Checking for the image directly (rather than requiring a
+      // <picture>) handles xwalk/EDS delivery, where an image reference can
+      // render as <p><img></p> instead of a <picture>.
+      const media = div.querySelector('picture, img');
+      const textLen = div.textContent.trim().length;
+      if (media && textLen === 0) div.className = 'cards-stats-card-image';
       else div.className = 'cards-stats-card-body';
     });
     ul.append(li);
