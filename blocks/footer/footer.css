@@ -79,15 +79,29 @@ footer .footer .footer-social ul li a:hover {
 
 @media (width >= 900px) {
   footer .footer {
-    flex-flow: row wrap;
-    align-items: center;
-    justify-content: space-between;
     padding: 24px 32px;
     text-align: left;
   }
 
+  /* The three sections (policy links / social / copyright) sit in an
+     intermediate wrapper div — lay THAT out as the horizontal footer row. */
+  footer .footer > div {
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    gap: 16px 24px;
+  }
+
   footer .footer ul {
     justify-content: flex-start;
+  }
+
+  /* Pin the social block to the far right of the footer row, matching the
+     live site (policy links + copyright on the left, social icons right).
+     Order it last so no column sits to its right. */
+  footer .footer > div > .section:has(.footer-social) {
+    order: 3;
+    margin-left: auto;
   }
 
   footer .footer .footer-social {
