@@ -240,7 +240,44 @@ export default async function decorate(block) {
       }
     });
 
-    // Append the Tata group logo on the right, as on the source.
+    // The source's utility row also carries Locations (globe), Accessibility
+    // Tools and Accessibility Guide icons. They aren't in the authored nav
+    // content, so append them here to match the live header.
+    const toolsList = navTools.querySelector('ul') || navTools;
+    const extraIcons = [
+      {
+        cls: 'nav-tools-icon nav-tools-icon-locations',
+        label: 'Locations',
+        href: '#',
+        html: '',
+      },
+      {
+        cls: 'nav-tools-icon nav-tools-svg',
+        label: 'Accessibility Tools',
+        href: '#',
+        html: '<svg aria-hidden="true" focusable="false" width="24" height="24" viewBox="0 0 512 512" fill="currentColor"><path d="M256 48c114.953 0 208 93.029 208 208 0 114.953-93.029 208-208 208-114.953 0-208-93.029-208-208 0-114.953 93.029-208 208-208m0-40C119.033 8 8 119.033 8 256s111.033 248 248 248 248-111.033 248-248S392.967 8 256 8zm0 56C149.961 64 64 149.961 64 256s85.961 192 192 192 192-85.961 192-192S362.039 64 256 64zm0 44c19.882 0 36 16.118 36 36s-16.118 36-36 36-36-16.118-36-36 16.118-36 36-36zm117.741 98.023c-28.712 6.779-55.511 12.748-82.14 15.807.851 101.024 12.306 123.452 25.037 155.621 3.617 9.146-.859 19.499-9.996 23.117-9.176 3.634-19.502-.867-23.116-9.996-4.319-10.911-11.129-27.652-16.516-51.386h-3.4c-5.387 23.734-12.197 40.475-16.516 51.386-3.614 9.129-13.94 13.63-23.116 9.996-9.137-3.618-13.613-13.971-9.996-23.117 12.731-32.169 24.186-54.597 25.037-155.621-26.629-3.059-53.428-9.028-82.14-15.807-9.66-2.281-15.641-11.961-13.36-21.621 2.28-9.658 11.94-15.646 21.621-13.36 28.144 6.649 53.101 12.024 76.868 12.024s48.724-5.375 76.868-12.024c9.681-2.286 19.341 3.702 21.621 13.36 2.281 9.66-3.7 19.34-13.36 21.621z"/></svg>',
+      },
+      {
+        cls: 'nav-tools-icon nav-tools-svg',
+        label: 'Accessibility Guide',
+        href: '#',
+        html: '<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" viewBox="0 0 16 16"><path d="M9.405 1.05c-.413-1.4-2.397-1.4-2.81 0l-.1.34a1.464 1.464 0 0 1-2.105.872l-.31-.17c-1.283-.698-2.686.705-1.987 1.987l.169.311c.446.82.023 1.841-.872 2.105l-.34.1c-1.4.413-1.4 2.397 0 2.81l.34.1a1.464 1.464 0 0 1 .872 2.105l-.17.31c-.698 1.283.705 2.686 1.987 1.987l.311-.169a1.464 1.464 0 0 1 2.105.872l.1.34c.413 1.4 2.397 1.4 2.81 0l.1-.34a1.464 1.464 0 0 1 2.105-.872l.31.17c1.283.698 2.686-.705 1.987-1.987l-.169-.311a1.464 1.464 0 0 1 .872-2.105l.34-.1c1.4-.413 1.4-2.397 0-2.81l-.34-.1a1.464 1.464 0 0 1-.872-2.105l.17-.31c.698-1.283-.705-2.686-1.987-1.987l-.311.169a1.464 1.464 0 0 1-2.105-.872l-.1-.34zM8 10.93a2.929 2.929 0 1 1 0-5.86 2.929 2.929 0 0 1 0 5.858z"/></svg>',
+      },
+    ];
+    extraIcons.forEach((cfg) => {
+      const li = document.createElement('li');
+      const a = document.createElement('a');
+      a.className = cfg.cls;
+      a.setAttribute('href', cfg.href);
+      a.setAttribute('aria-label', cfg.label);
+      a.innerHTML = cfg.html;
+      li.append(a);
+      toolsList.append(li);
+    });
+
+    // Append the Tata group logo on the far right, as on the source.
+    const tataLi = document.createElement('li');
+    tataLi.className = 'nav-tools-tatalogo-item';
     const tataLogo = document.createElement('a');
     tataLogo.className = 'nav-tools-tatalogo';
     tataLogo.setAttribute('href', 'https://www.tata.com/');
@@ -250,7 +287,8 @@ export default async function decorate(block) {
     tlImg.setAttribute('alt', 'Tata');
     tlImg.setAttribute('loading', 'lazy');
     tataLogo.append(tlImg);
-    navTools.append(tataLogo);
+    tataLi.append(tataLogo);
+    toolsList.append(tataLi);
   }
 
   // hamburger for mobile

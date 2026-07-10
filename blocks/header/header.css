@@ -319,7 +319,32 @@ header nav .nav-tools a.nav-tools-icon-search {
   background-position: -38px 0;
 }
 
-/* Tata group logo on the right of the tools row. */
+header nav .nav-tools a.nav-tools-icon-locations {
+  width: 13px;
+  background-position: -54px 0;
+}
+
+/* Accessibility Tools / Guide render as inline SVG glyphs (source uses
+   FontAwesome + a gear icon). Show them white to match the other icons. */
+header nav .nav-tools a.nav-tools-svg {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  color: #fff;
+}
+
+header nav .nav-tools a.nav-tools-svg svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Tata group logo sits at the far right of the tools row. */
+header nav .nav-tools .nav-tools-tatalogo-item {
+  margin-left: 8px;
+}
+
 header nav .nav-tools a.nav-tools-tatalogo {
   display: block;
   line-height: 0;
