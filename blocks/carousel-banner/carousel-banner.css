@@ -12,6 +12,22 @@
   padding: 0 !important;
 }
 
+/* The source hero runs edge-to-edge to the very top of the page, sitting
+   BEHIND a transparent fixed navigation (the banner image shows through the
+   nav band). The site reserves header-height of flow space for the fixed nav,
+   so pull the hero section up by that amount and drop the section's own top
+   padding so the banner image touches the very top of the viewport. */
+main > .section.carousel-banner-container {
+  margin-top: calc(-1 * var(--header-height));
+  padding-top: 0;
+}
+
+/* A stray link paragraph is authored before the carousel in the hero section;
+   the source doesn't render it above the banner, so hide it. */
+main > .section.carousel-banner-container > .default-content-wrapper {
+  display: none;
+}
+
 .carousel-banner {
   position: relative;
   width: 100%;
