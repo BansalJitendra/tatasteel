@@ -319,6 +319,22 @@ main > .section.media {
   color: var(--text-color);
 }
 
+/* The Media panel content (heading + filter tabs + card carousel) is compact
+   on the source. EDS gives each wrapper large auto margins, which spread the
+   three pieces apart and leave big empty gaps inside the 900px panel. Collapse
+   those inter-element margins so heading, tabs and cards sit close together
+   and read as one grouped block like the live site. */
+main > .section.media > .default-content-wrapper,
+main > .section.media > .tabs-nav-wrapper,
+main > .section.media > .cards-media-wrapper {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+main > .section.media > .tabs-nav-wrapper {
+  margin-bottom: 24px;
+}
+
 main > .section.stats {
   background-color: #1d1d1d;
   color: #fff;
