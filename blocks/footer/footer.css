@@ -84,31 +84,37 @@ footer .footer .footer-social ul li a:hover {
   }
 
   /* The three sections (policy links / social / copyright) sit in an
-     intermediate wrapper div — lay THAT out as the horizontal footer row. */
+     intermediate wrapper div — lay THAT out as the horizontal footer row.
+     Live layout: policy links top-left with the copyright stacked directly
+     beneath them, and the social icons pinned top-right. */
   footer .footer > div {
     display: flex;
     flex-flow: row wrap;
-    align-items: center;
-    gap: 16px 24px;
+    align-items: flex-start;
+    gap: 12px 24px;
   }
 
   footer .footer ul {
     justify-content: flex-start;
   }
 
-  /* Pin the social block to the far right of the footer row, matching the
-     live site (policy links + copyright on the left, social icons right).
-     Order it last so no column sits to its right. */
-  footer .footer > div > .section:has(.footer-social) {
-    order: 3;
-    margin-left: auto;
-  }
+  /* Sections are in fixed DOM order: 1 = policy links, 2 = social, 3 =
+     copyright. Policy links stay top-left (default). */
 
-  footer .footer .footer-social {
+  /* Social icons: pinned to the far right of the top row. */
+  footer .footer > div > .section:nth-of-type(2) {
+    margin-left: auto;
     text-align: right;
   }
 
   footer .footer .footer-social ul {
     justify-content: flex-end;
+  }
+
+  /* Copyright: break onto its own full-width line so it sits left-aligned
+     directly below the policy links (matching the live footer). */
+  footer .footer > div > .section:nth-of-type(3) {
+    flex-basis: 100%;
+    text-align: left;
   }
 }
