@@ -141,13 +141,16 @@ main > .section.carousel-banner-container > .default-content-wrapper {
   border: 0;
 }
 
-/* --- Thumbnail navigation band (below the banner image, centered) ---
-   Source (tatasteel.com) renders a centered row of thumbnail cards beneath the
-   hero banner. Each card is 252px wide x 89px tall, background image cover,
-   with a dark overlay; the active card gets a 2px blue bar on top. The band
-   sits BELOW the image (image takes the full height up to the navigation). */
+/* --- Thumbnail navigation band (overlapping the banner, centered) ---
+   Source (tatasteel.com) renders a centered row of thumbnail cards OVER the
+   bottom of the hero banner. Each card is 252px wide x 89px tall, background
+   image cover, with a dark overlay; the active card gets a 2px blue bar on
+   top. The band is pinned to the bottom of the slide and overlaps the image. */
 .carousel-banner nav[aria-label] {
-  position: relative;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
   z-index: 3;
 }
 
