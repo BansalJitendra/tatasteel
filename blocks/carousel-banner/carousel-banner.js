@@ -85,6 +85,39 @@ function remapToLandscape(src) {
   return hit ? LANDSCAPE_IMAGE_REMAP[hit] : src;
 }
 
+// The source plays full-bleed background videos on the desktop hero for the
+// Centre for Excellence and 4QFY26 slides (there is no high-res still — only a
+// 500px thumbnail, which looks stretched when upscaled). Map those slides to
+// their published desktop videos so the hero matches the source.
+const VIDEO_BY_IMAGE = [
+  { match: '/media/21664/500x781.jpg', video: 'https://www.tatasteel.com/media/21667/1400x790px-video.mp4' },
+  { match: 'cfe-vr-new-experence', video: 'https://www.tatasteel.com/media/21667/1400x790px-video.mp4' },
+  { match: '4qfy26-financial-results-ts-mobile-banner', video: 'https://www.tatasteel.com/media/25717/4qfy26-financial-results-ts.mp4' },
+  { match: '4qfy26-financial-results-ts-thumb-banner', video: 'https://www.tatasteel.com/media/25717/4qfy26-financial-results-ts.mp4' },
+];
+
+function videoForImage(src) {
+  if (!src) return null;
+  const hit = VIDEO_BY_IMAGE.find((m) => src.includes(m.match));
+  return hit ? hit.video : null;
+}
+
+function buildBannerVideo(src) {
+  const video = document.createElement('video');
+  video.className = 'carousel-banner-slide-video';
+  video.setAttribute('autoplay', '');
+  video.muted = true;
+  video.setAttribute('muted', '');
+  video.setAttribute('loop', '');
+  video.setAttribute('playsinline', '');
+  video.setAttribute('preload', 'auto');
+  const source = document.createElement('source');
+  source.setAttribute('src', src);
+  source.setAttribute('type', 'video/mp4');
+  video.append(source);
+  return video;
+}
+
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
@@ -119,6 +152,20 @@ function createSlide(row, slideIndex, carouselId) {
       img.removeAttribute('srcset');
     }
   });
+
+  // Slides whose source hero is a background video (CFE, 4QFY26) get the video
+  // rendered full-bleed behind the image, with the still kept as a poster
+  // fallback until the video loads.
+  const posterImg = imageCell?.querySelector('img');
+  const videoSrc = videoForImage(posterImg ? posterImg.getAttribute('src') : '');
+  if (imageCell && videoSrc) {
+    const video = buildBannerVideo(videoSrc);
+    if (posterImg && posterImg.getAttribute('src')) {
+      video.setAttribute('poster', posterImg.getAttribute('src'));
+    }
+    imageCell.prepend(video);
+    if (posterImg) posterImg.style.display = 'none';
+  }
 
   // The content cell only carries the slide's click-through URL (not display
   // copy). Turn the whole slide into a click-through link and hide the raw URL.

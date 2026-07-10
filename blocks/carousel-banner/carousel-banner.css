@@ -104,6 +104,17 @@ main > .section.carousel-banner-container > .default-content-wrapper {
   object-position: 50% 50%;
 }
 
+/* Some slides (CFE, 4QFY26) play a full-bleed background video like the source
+   instead of a static still. */
+.carousel-banner .carousel-banner-slide .carousel-banner-slide-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 50%;
+}
+
 /* --- Whole-slide click-through link (created in JS) --- */
 .carousel-banner .carousel-banner-slide .carousel-banner-slide-link {
   position: absolute;
