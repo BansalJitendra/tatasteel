@@ -143,6 +143,14 @@ header .nav-brand {
   line-height: 1;
 }
 
+/* Left-align the logo like the source: keep the brand next to the hamburger at
+   the left and push the tools row to the right (desktop flex nav). */
+@media (width >= 900px) {
+  header nav .nav-brand {
+    margin-right: auto;
+  }
+}
+
 header .nav-brand ul,
 header .nav-brand ol {
   list-style: none;
