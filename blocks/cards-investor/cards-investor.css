@@ -18,6 +18,30 @@
   padding: 20px 30px;
 }
 
+/* Source "fadeInUp" scroll animation: the boxes start well below their spot,
+   fully transparent, then rise into place + fade in when scrolled into view.
+   Staggered per-card via --reveal-duration (1s / 1.5s / 2s like the source). */
+.cards-investor > ul > li.cards-investor-reveal {
+  opacity: 0;
+  transform: translateY(100px);
+  transition:
+    opacity var(--reveal-duration, 1s) ease-out,
+    transform var(--reveal-duration, 1s) ease-out;
+}
+
+.cards-investor > ul > li.cards-investor-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cards-investor > ul > li.cards-investor-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* first cell is the (empty) image cell in the authored table — hide it */
 .cards-investor > ul > li > .cards-investor-card-image,
 .cards-investor > ul > li > .cards-investor-card-body:empty {

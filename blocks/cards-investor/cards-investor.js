@@ -43,4 +43,23 @@ export default function decorate(block) {
   });
   block.textContent = '';
   block.append(ul);
+
+  // The source animates the three investor boxes with a staggered "fadeInUp"
+  // (rise from far below + fade in) when the section scrolls into view. Apply
+  // the same: mark each card for reveal with an increasing duration, then flip
+  // the revealed state via an IntersectionObserver.
+  const cards = [...ul.children];
+  cards.forEach((li, i) => {
+    li.classList.add('cards-investor-reveal');
+    li.style.setProperty('--reveal-duration', `${1 + i * 0.5}s`);
+  });
+  const revealObserver = new IntersectionObserver((entries, obs) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('cards-investor-revealed');
+        obs.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+  cards.forEach((li) => revealObserver.observe(li));
 }
