@@ -265,6 +265,7 @@ main > .section.stats {
    The sustainability carousel is a full-bleed banner that fills the panel, so
    drop the section's vertical padding to remove the dark gaps above/below it. */
 main > .section.sustainability {
+  position: relative;
   background-color: #000;
   color: #fff;
   padding-top: 0;
@@ -354,5 +355,21 @@ main > .section.sustainability h3,
 main > .section.products h3,
 main > .section.investors h3,
 main > .section.stats h3 { color: #fff; }
+
+/* Sustainability: the source fills the whole 900px panel with the full-bleed
+   carousel banner and overlays the "SUSTAINABILITY" label on top of it
+   (position: absolute). Do the same so there is no grey/black gap between the
+   heading and the banner. */
+main > .section.sustainability > .default-content-wrapper {
+  position: absolute;
+  top: 24px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+}
+
+main > .section.sustainability > .carousel-quote-wrapper {
+  width: 100%;
+}
 
 main > .section.media h3 { color: var(--brand-blue); }

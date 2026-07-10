@@ -61,7 +61,10 @@ main > .section .carousel-quote-wrapper {
 @media (width >= 900px) {
   .carousel-quote .carousel-quote-slide {
     aspect-ratio: auto;
-    min-height: 820px;
+
+    /* Fill the full 900px sustainability panel so the banner butts against the
+       heading band with no black strip above/below. */
+    min-height: 900px;
   }
 }
 
