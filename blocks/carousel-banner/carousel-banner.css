@@ -19,7 +19,9 @@
    padding so the banner image touches the very top of the viewport. */
 main > .section.carousel-banner-container {
   margin-top: calc(-1 * var(--header-height));
+  margin-bottom: 0;
   padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* A stray link paragraph is authored before the carousel in the hero section;
