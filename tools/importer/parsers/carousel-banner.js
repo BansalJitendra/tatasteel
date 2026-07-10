@@ -30,6 +30,8 @@ export default function parse(element, { document }) {
   // so map to the wide desktop asset where one is published.
   const DESKTOP_IMAGE_BY_HREF = [
     { match: '119th-annual-general-meeting', url: 'https://www.tatasteel.com/media/26156/ts-119-agm-banner.jpg' },
+    { match: 'centre-for-excellence', url: 'https://www.tatasteel.com/media/21690/cfe-vr-new-experence-500x283px.jpg' },
+    { match: 'twelve-months-ended-march-31-2026', url: 'https://www.tatasteel.com/media/25720/4qfy26-financial-results-ts-thumb-banner.jpeg' },
   ];
 
   // Choose the best image URL for a slide <li>: an explicit desktop still for

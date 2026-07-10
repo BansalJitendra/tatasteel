@@ -69,6 +69,22 @@ function bindEvents(block) {
   });
 }
 
+// The authored content references the portrait (mobile) banner stills for some
+// slides, which crop badly when covered into the landscape hero box. Remap
+// those to the published landscape assets so the baked-in text stays visible.
+// (The importer parser is also fixed for future imports; this keeps already
+// published content correct without a re-import.)
+const LANDSCAPE_IMAGE_REMAP = {
+  '/media/21664/500x781.jpg': 'https://www.tatasteel.com/media/21690/cfe-vr-new-experence-500x283px.jpg',
+  '/media/25719/4qfy26-financial-results-ts-mobile-banner.jpeg': 'https://www.tatasteel.com/media/25720/4qfy26-financial-results-ts-thumb-banner.jpeg',
+};
+
+function remapToLandscape(src) {
+  if (!src) return src;
+  const hit = Object.keys(LANDSCAPE_IMAGE_REMAP).find((portrait) => src.includes(portrait));
+  return hit ? LANDSCAPE_IMAGE_REMAP[hit] : src;
+}
+
 function createSlide(row, slideIndex, carouselId) {
   const slide = document.createElement('li');
   slide.dataset.slideIndex = slideIndex;
@@ -89,10 +105,20 @@ function createSlide(row, slideIndex, carouselId) {
   const imageAnchor = imageCell?.querySelector('a[href]');
   if (imageAnchor && /\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(imageAnchor.getAttribute('href') || '')) {
     const img = document.createElement('img');
-    img.setAttribute('src', imageAnchor.getAttribute('href'));
+    img.setAttribute('src', remapToLandscape(imageAnchor.getAttribute('href')));
     img.setAttribute('alt', (imageAnchor.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
     imageAnchor.replaceWith(img);
   }
+
+  // Delivery renders the reference as <img> directly (or inside <picture>);
+  // remap those portrait stills to their landscape equivalents too.
+  imageCell?.querySelectorAll('img').forEach((img) => {
+    const remapped = remapToLandscape(img.getAttribute('src'));
+    if (remapped !== img.getAttribute('src')) {
+      img.setAttribute('src', remapped);
+      img.removeAttribute('srcset');
+    }
+  });
 
   // The content cell only carries the slide's click-through URL (not display
   // copy). Turn the whole slide into a click-through link and hide the raw URL.
