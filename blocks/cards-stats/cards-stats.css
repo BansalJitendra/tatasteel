@@ -17,6 +17,14 @@
   padding: 0;
 }
 
+/* The source page leaks its cookie-consent / audio-widget chrome as loose
+   paragraphs after the stats band ("This website uses cookies...", "×",
+   "Cancel Audio"). It is not real page content, so hide that trailing
+   default-content block in the stats section. */
+main > .section.stats > .default-content-wrapper {
+  display: none;
+}
+
 .cards-stats-container > .cards-stats-wrapper {
   max-width: none;
   padding: 0;
