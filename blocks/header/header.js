@@ -223,10 +223,34 @@ export default async function decorate(block) {
 
   const navTools = nav.querySelector('.nav-tools');
   if (navTools) {
-    const search = navTools.querySelector('a[href*="search"]');
-    if (search && search.textContent === '') {
-      search.setAttribute('aria-label', 'Search');
-    }
+    // The source renders the tools links (Home / Contact Us / Search) as sprite
+    // icons, not text. Tag each with an icon class (keeping the label as an
+    // accessible aria-label) so CSS can render the sprite glyph.
+    const ICON_BY_LABEL = [
+      { match: /^home$/i, icon: 'home' },
+      { match: /contact/i, icon: 'contact' },
+      { match: /search/i, icon: 'search' },
+    ];
+    navTools.querySelectorAll('a').forEach((a) => {
+      const label = (a.textContent || '').trim();
+      const hit = ICON_BY_LABEL.find((m) => m.match.test(label));
+      if (hit) {
+        a.classList.add('nav-tools-icon', `nav-tools-icon-${hit.icon}`);
+        if (label) a.setAttribute('aria-label', label);
+      }
+    });
+
+    // Append the Tata group logo on the right, as on the source.
+    const tataLogo = document.createElement('a');
+    tataLogo.className = 'nav-tools-tatalogo';
+    tataLogo.setAttribute('href', 'https://www.tata.com/');
+    tataLogo.setAttribute('aria-label', 'Tata group');
+    const tlImg = document.createElement('img');
+    tlImg.setAttribute('src', 'https://www.tatasteel.com/images/tata_logo.png');
+    tlImg.setAttribute('alt', 'Tata');
+    tlImg.setAttribute('loading', 'lazy');
+    tataLogo.append(tlImg);
+    navTools.append(tataLogo);
   }
 
   // hamburger for mobile

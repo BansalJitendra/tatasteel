@@ -283,13 +283,51 @@ header nav .nav-tools ul li {
 }
 
 header nav .nav-tools a:any-link {
-  color: var(--text-color);
+  color: #fff;
   text-decoration: none;
   white-space: nowrap;
 }
 
 header nav .nav-tools a:hover {
   color: var(--brand-blue);
+}
+
+/* Tools links render as sprite icons (source images/sprite.png), not text.
+   Hide the label text and show the sprite glyph at the source's coordinates. */
+header nav .nav-tools a.nav-tools-icon {
+  display: block;
+  height: 14px;
+  overflow: hidden;
+  text-indent: -9999px;
+  background-image: url('https://www.tatasteel.com/images/sprite.png');
+  background-repeat: no-repeat;
+  filter: brightness(0) invert(1);
+}
+
+header nav .nav-tools a.nav-tools-icon-home {
+  width: 17px;
+  background-position: 0 0;
+}
+
+header nav .nav-tools a.nav-tools-icon-contact {
+  width: 13px;
+  background-position: -21px 0;
+}
+
+header nav .nav-tools a.nav-tools-icon-search {
+  width: 12px;
+  background-position: -38px 0;
+}
+
+/* Tata group logo on the right of the tools row. */
+header nav .nav-tools a.nav-tools-tatalogo {
+  display: block;
+  line-height: 0;
+}
+
+header nav .nav-tools a.nav-tools-tatalogo img {
+  width: auto;
+  height: 44px;
 }
 
 header nav .nav-tools .button {
