@@ -1,8 +1,24 @@
 // eslint-disable-next-line import/no-unresolved
 import { moveInstrumentation } from '../../scripts/scripts.js';
+import REGION_MAPS from './region-maps.js';
 
 // keep track globally of the number of tab blocks on the page
 let tabBlockCnt = 0;
+
+// The Products & Solutions region maps are hotlinked from tatasteel.com, which
+// blocks cross-origin image loads from the delivery origin, so they fail to
+// render. Swap those specific PNG srcs for inlined data URIs.
+const MAP_SRC_REMAP = [
+  { match: '/media/2868/', data: REGION_MAPS.india },
+  { match: '/media/2867/', data: REGION_MAPS.europe },
+  { match: '/media/2869/', data: REGION_MAPS.sea },
+];
+
+function remapMapSrc(src) {
+  if (!src) return src;
+  const hit = MAP_SRC_REMAP.find((m) => src.includes(m.match));
+  return hit ? hit.data : src;
+}
 
 export default async function decorate(block) {
   // In xwalk/JCR delivery (and when the Universal Editor re-decorates the
@@ -13,9 +29,19 @@ export default async function decorate(block) {
     const href = a.getAttribute('href') || '';
     if (/\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(href) && !a.closest('picture')) {
       const img = document.createElement('img');
-      img.setAttribute('src', href);
+      img.setAttribute('src', remapMapSrc(href));
       img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
       a.replaceWith(img);
+    }
+  });
+
+  // Delivery may also render the image directly as <img>/<picture>; remap those
+  // blocked map srcs to the inline data URIs too.
+  block.querySelectorAll('img').forEach((img) => {
+    const remapped = remapMapSrc(img.getAttribute('src'));
+    if (remapped !== img.getAttribute('src')) {
+      img.setAttribute('src', remapped);
+      img.removeAttribute('srcset');
     }
   });
 
