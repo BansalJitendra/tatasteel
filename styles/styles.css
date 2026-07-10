@@ -261,10 +261,14 @@ main > .section.stats {
   padding: 60px 0;
 }
 
-/* Original Tata Steel section backgrounds: dark panels with a light media band. */
+/* Original Tata Steel section backgrounds: dark panels with a light media band.
+   The sustainability carousel is a full-bleed banner that fills the panel, so
+   drop the section's vertical padding to remove the dark gaps above/below it. */
 main > .section.sustainability {
   background-color: #000;
   color: #fff;
+  padding-top: 0;
+  padding-bottom: 0;
 }
 
 /* Sustainability, Products, Investors and Media are full-viewport panels on the
