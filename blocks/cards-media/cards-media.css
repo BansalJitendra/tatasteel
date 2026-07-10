@@ -5,15 +5,23 @@
    Values (typography, shadow, spacing, colors) come from source
    getComputedStyle extraction. */
 
-/* Grid of media tiles. The source Media section shows a set of tiles in a
-   grid; on desktop that is 2 rows x 4 columns (8 tiles). */
+/* Media tiles as a horizontal 2-row carousel: tiles flow top-to-bottom then
+   into the next column, and the track scrolls sideways to reveal more. On
+   desktop 4 columns (2 rows x 4 = 8 tiles) are visible at once. */
 .cards-media .cards-media-list {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 0 12px;
   display: grid;
-  grid-template-columns: 1fr;
+  grid-auto-flow: column;
+  grid-template-rows: repeat(2, 1fr);
+
+  /* Mobile default: ~1.5 columns visible so more tiles hint at scroll. */
+  grid-auto-columns: calc((100% - 10px) / 1.5);
   gap: 10px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-behavior: smooth;
 }
 
 .cards-media .cards-media-list[hidden] {
@@ -24,9 +32,20 @@
   display: flex;
   flex-direction: column;
   min-height: 225px;
+  scroll-snap-align: start;
   background-color: rgb(255 255 255);
   box-shadow: rgb(205 205 205) 0 0 5px 0;
   overflow: hidden;
+}
+
+/* Thin scrollbar for the carousel track. */
+.cards-media .cards-media-list::-webkit-scrollbar {
+  height: 6px;
+}
+
+.cards-media .cards-media-list::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+  background-color: rgb(0 43 69 / 30%);
 }
 
 /* Image cell (cards with a real thumbnail). Source thumbnail box is
@@ -126,16 +145,16 @@ main .cards-media .cards-media-card-body a.button:any-link:hover {
   color: rgb(0 43 69);
 }
 
-/* Tablet: 2 columns. */
+/* Tablet: ~2.5 columns visible. */
 @media (width >= 700px) {
   .cards-media .cards-media-list {
-    grid-template-columns: repeat(2, 1fr);
+    grid-auto-columns: calc((100% - 2 * 10px) / 2.5);
   }
 }
 
-/* Desktop: 4 columns (2 rows x 4 columns = 8 tiles). */
+/* Desktop: 4 columns visible (2 rows x 4 = 8 tiles), rest scroll. */
 @media (width >= 900px) {
   .cards-media .cards-media-list {
-    grid-template-columns: repeat(4, 1fr);
+    grid-auto-columns: calc((100% - 3 * 10px) / 4);
   }
 }

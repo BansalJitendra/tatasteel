@@ -15,10 +15,11 @@ const IN_THE_NEWS = [
   { title: 'Tata Sons - should it be listed or remain unlisted?', href: `${TS}/newsroom/in-the-news/2026/tata-sons-should-it-be-listed-or-remain-unlisted/`, date: 'May 29, 2026' },
   { title: 'Mental health at work: Building a culture of emotional well-being', href: `${TS}/newsroom/in-the-news/2026/mental-health-at-work-building-a-culture-of-emotional-well-being/`, date: 'May 28, 2026' },
   { title: 'TSAF Shines in Kolkata Rowing', href: `${TS}/newsroom/in-the-news/2026/tsaf-shines-in-kolkata-rowing/`, date: 'May 31, 2026' },
+  { title: 'Tata Steel Signs MoU with University of Science and Technology Beijing', href: `${TS}/newsroom/in-the-news/2026/tata-steel-signs-mou-with-university-of-science-and-technology-beijing/`, date: 'May 27, 2026' },
+  { title: 'National Trends', href: `${TS}/newsroom/in-the-news/2026/national-trends/`, date: 'May 31, 2026' },
+  { title: '16-day summer camp concludes', href: `${TS}/newsroom/in-the-news/2026/16-day-summer-camp-concludes/`, date: 'May 31, 2026' },
+  { title: 'Tata Steel recognised as Steel Sustainability Champion by worldsteel', href: `${TS}/newsroom/in-the-news/2026/tata-steel-recognised-as-steel-sustainability-champion-by-worldsteel/`, date: 'Apr 15, 2026' },
 ];
-
-// Number of tiles shown per tab (2 rows x 4 columns on desktop).
-const TILES_PER_TAB = 8;
 
 function optimizeImages(scope) {
   scope.querySelectorAll('picture > img').forEach((img) => {
@@ -81,14 +82,12 @@ export default function decorate(block) {
     });
     pressList.append(li);
   });
-  // Keep the grid to 2 rows x 4 columns.
-  [...pressList.children].slice(TILES_PER_TAB).forEach((li) => li.remove());
   optimizeImages(pressList);
 
   // In The News list (supplied above).
   const newsList = document.createElement('ul');
   newsList.className = 'cards-media-list';
-  IN_THE_NEWS.slice(0, TILES_PER_TAB).forEach((item) => newsList.append(buildNewsCard(item)));
+  IN_THE_NEWS.forEach((item) => newsList.append(buildNewsCard(item)));
   newsList.hidden = true;
 
   block.textContent = '';
