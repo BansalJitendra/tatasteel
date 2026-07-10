@@ -24,8 +24,21 @@ export default function parse(element, { document }) {
     return m ? m[1] : '';
   };
 
-  // Choose the best image URL for a slide <li>: desktop bg, else mobile bg.
-  const slideImageUrl = (li) => {
+  // Known landscape (desktop) banner stills keyed by slide href fragment. The
+  // scraped DOM only carries the mobile portrait bg for these slides (the
+  // desktop .hidden-xs bg / video is set by JS at runtime and isn't captured),
+  // so map to the wide desktop asset where one is published.
+  const DESKTOP_IMAGE_BY_HREF = [
+    { match: '119th-annual-general-meeting', url: 'https://www.tatasteel.com/media/26156/ts-119-agm-banner.jpg' },
+  ];
+
+  // Choose the best image URL for a slide <li>: an explicit desktop still for
+  // known slides, then the desktop bg, else the mobile bg.
+  const slideImageUrl = (li, href) => {
+    if (href) {
+      const mapped = DESKTOP_IMAGE_BY_HREF.find((m) => href.includes(m.match));
+      if (mapped) return mapped.url;
+    }
     if (!li) return '';
     const desktop = li.querySelector('.banner_images.hidden-xs');
     const mobile = li.querySelector('.banner_images.visible-xs');
@@ -44,7 +57,7 @@ export default function parse(element, { document }) {
   });
 
   const buildRow = (href, labelText, li) => {
-    const imgUrl = slideImageUrl(li);
+    const imgUrl = slideImageUrl(li, href);
 
     const imageCell = document.createDocumentFragment();
     imageCell.appendChild(document.createComment(' field:media_image '));
