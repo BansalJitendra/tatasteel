@@ -29,18 +29,22 @@ export default async function decorate(block) {
     const href = a.getAttribute('href') || '';
     if (/\.(jpe?g|png|gif|webp|avif|svg)(\?|#|$)/i.test(href) && !a.closest('picture')) {
       const img = document.createElement('img');
-      img.setAttribute('src', remapMapSrc(href));
+      const remapped = remapMapSrc(href);
+      img.setAttribute('src', remapped);
+      if (remapped !== href) img.setAttribute('loading', 'eager');
       img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
       a.replaceWith(img);
     }
   });
 
   // Delivery may also render the image directly as <img>/<picture>; remap those
-  // blocked map srcs to the inline data URIs too.
+  // blocked map srcs to the inline data URIs too. Load eagerly so the map is
+  // ready before the tab is shown (lazy-load defers off-screen tiles).
   block.querySelectorAll('img').forEach((img) => {
     const remapped = remapMapSrc(img.getAttribute('src'));
     if (remapped !== img.getAttribute('src')) {
       img.setAttribute('src', remapped);
+      img.setAttribute('loading', 'eager');
       img.removeAttribute('srcset');
     }
   });
