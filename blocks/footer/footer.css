@@ -44,6 +44,39 @@ footer .footer a:hover {
   text-decoration: underline;
 }
 
+/* Social icons row: "FOLLOW US ON" label + circular white glyphs. */
+footer .footer .footer-follow {
+  display: block;
+  margin-bottom: 12px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #cfcfcf;
+}
+
+footer .footer .footer-social ul {
+  gap: 14px;
+}
+
+footer .footer .footer-social ul li a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 33px;
+  height: 33px;
+  color: #fff;
+}
+
+footer .footer .footer-social ul li a svg {
+  width: 20px;
+  height: 20px;
+}
+
+footer .footer .footer-social ul li a:hover {
+  color: var(--brand-blue, #3d7edb);
+}
+
 @media (width >= 900px) {
   footer .footer {
     flex-flow: row wrap;
@@ -55,5 +88,13 @@ footer .footer a:hover {
 
   footer .footer ul {
     justify-content: flex-start;
+  }
+
+  footer .footer .footer-social {
+    text-align: right;
+  }
+
+  footer .footer .footer-social ul {
+    justify-content: flex-end;
   }
 }
