@@ -190,6 +190,14 @@
   line-height: 1.4;
 }
 
+/* Media section: these tabs are pure filter buttons that toggle the sibling
+ * cards-media lists. Each panel only echoes its own tab label, so it renders a
+ * duplicate "Press Release" / "In The News" line under the tab bar. Hide the
+ * panels — the real content lives in the cards-media block. */
+.section.media .tabs-nav .tabs-nav-panel {
+  display: none;
+}
+
 @media (width >= 900px) {
   .tabs-nav .tabs-nav-list button.tabs-nav-tab {
     font-size: 20px;
