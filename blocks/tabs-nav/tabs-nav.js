@@ -56,14 +56,31 @@ export default async function decorate(block) {
   if (block.closest('.section.products')) {
     tabBlockCnt += 1;
     block.classList.add('tabs-nav-all');
+    const panels = [];
     [...block.children].forEach((row, i) => {
       const heading = row.firstElementChild; // title cell
       const panel = row;
       panel.classList.add('tabs-nav-panel');
       panel.id = `tabpanel-${tabBlockCnt}-region-${i + 1}`;
+      // Each map animates up into view on scroll; stagger the three slightly.
+      panel.classList.add('tabs-nav-reveal');
+      panel.style.setProperty('--reveal-delay', `${i * 0.15}s`);
       // Drop the redundant title cell (the region name repeats as the link).
       if (heading) heading.remove();
+      panels.push(panel);
     });
+
+    // Reveal the maps (pop up from bottom to top) when the section scrolls into
+    // view, matching the source's scroll animation.
+    const revealObserver = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('tabs-nav-revealed');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.2 });
+    panels.forEach((panel) => revealObserver.observe(panel));
     return;
   }
 

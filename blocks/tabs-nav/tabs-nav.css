@@ -93,6 +93,29 @@
   flex: 0 0 auto;
 }
 
+/* Region maps pop up from bottom to top when scrolled into view (source
+   scroll animation). Start shifted down + transparent, then rise into place. */
+.tabs-nav.tabs-nav-all .tabs-nav-panel.tabs-nav-reveal {
+  opacity: 0;
+  transform: translateY(60px);
+  transition:
+    opacity 0.6s ease-out var(--reveal-delay, 0s),
+    transform 0.6s ease-out var(--reveal-delay, 0s);
+}
+
+.tabs-nav.tabs-nav-all .tabs-nav-panel.tabs-nav-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs-nav.tabs-nav-all .tabs-nav-panel.tabs-nav-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 .tabs-nav .tabs-nav-panel > div {
   display: flex;
   flex-direction: column;
