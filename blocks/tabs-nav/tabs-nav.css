@@ -79,6 +79,20 @@
   display: none;
 }
 
+/* Products & Solutions: no tabs — show all three region maps at once in a
+   centered row (source layout), each a clickable link to its region page. */
+.tabs-nav.tabs-nav-all {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 32px 64px;
+}
+
+.tabs-nav.tabs-nav-all .tabs-nav-panel {
+  flex: 0 0 auto;
+}
+
 .tabs-nav .tabs-nav-panel > div {
   display: flex;
   flex-direction: column;

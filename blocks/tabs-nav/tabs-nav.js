@@ -49,6 +49,24 @@ export default async function decorate(block) {
     }
   });
 
+  // Products & Solutions is NOT a tabbed control on the source: all three
+  // region maps (India / Europe / South East Asia) are shown at once, each a
+  // clickable link to its region page. Render every panel visible side-by-side
+  // and drop the tab buttons/switching for that section.
+  if (block.closest('.section.products')) {
+    tabBlockCnt += 1;
+    block.classList.add('tabs-nav-all');
+    [...block.children].forEach((row, i) => {
+      const heading = row.firstElementChild; // title cell
+      const panel = row;
+      panel.classList.add('tabs-nav-panel');
+      panel.id = `tabpanel-${tabBlockCnt}-region-${i + 1}`;
+      // Drop the redundant title cell (the region name repeats as the link).
+      if (heading) heading.remove();
+    });
+    return;
+  }
+
   // build tablist
   const tablist = document.createElement('div');
   tablist.className = 'tabs-nav-list';
