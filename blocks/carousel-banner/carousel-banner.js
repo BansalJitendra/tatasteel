@@ -253,14 +253,39 @@ export default async function decorate(block) {
     bindEvents(block);
     // The source hero opens on its latest (last) slide — the 119th AGM banner —
     // rather than the first. Match that by jumping to the last slide on load.
-    // Media loading and scroll-snap can shift the offset after the first frame,
-    // so re-assert the position across a few frames and again on window load.
+    // The block starts hidden (CSS, until .carousel-banner-ready) so the first
+    // slide never flashes before we scroll to the last one. Position it
+    // synchronously, reveal, then re-assert across a few frames and on window
+    // load since media loading / scroll-snap can shift the offset.
     const slideCount = slidesWrapper.querySelectorAll('.carousel-banner-slide').length;
-    const goLast = () => showSlide(block, slideCount - 1, 'instant');
-    requestAnimationFrame(goLast);
-    setTimeout(goLast, 100);
-    setTimeout(goLast, 400);
-    window.addEventListener('load', goLast, { once: true });
+    // While hidden the track uses scroll-behavior:auto (CSS), so setting
+    // scrollLeft jumps instantly with no cross-slide animation — that animation
+    // was the flicker. Jump to the last slide, then reveal only once the scroll
+    // offset has actually landed on the target (retrying across frames).
+    const lastSlide = () => slidesWrapper.querySelectorAll('.carousel-banner-slide')[slideCount - 1];
+    const jumpToLast = () => {
+      const last = lastSlide();
+      slidesWrapper.scrollLeft = last.offsetLeft;
+      updateActiveSlide(last);
+    };
+    let attempts = 0;
+    const settleAndReveal = () => {
+      jumpToLast();
+      const target = lastSlide().offsetLeft;
+      attempts += 1;
+      if (Math.abs(slidesWrapper.scrollLeft - target) <= 2 || attempts > 30) {
+        block.classList.add('carousel-banner-ready');
+      } else {
+        requestAnimationFrame(settleAndReveal);
+      }
+    };
+    requestAnimationFrame(settleAndReveal);
+    // Re-assert after later layout shifts (media load) so it stays put.
+    setTimeout(jumpToLast, 200);
+    setTimeout(jumpToLast, 500);
+    // Safety: never leave the banner hidden if something above is delayed.
+    setTimeout(() => block.classList.add('carousel-banner-ready'), 600);
+    window.addEventListener('load', jumpToLast, { once: true });
 
     // Auto-rotate through the slides like the source hero. Advance every 5s,
     // pause while the pointer is over the banner, and honor reduced-motion.

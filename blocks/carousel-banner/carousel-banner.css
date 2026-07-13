@@ -55,6 +55,16 @@ main > .section.carousel-banner-container > .default-content-wrapper {
   overflow: scroll clip;
 }
 
+/* The JS opens the hero on the last slide (matching the source). Keep the
+   slides invisible until it has scrolled into position (.carousel-banner-ready)
+   so the first slide never flashes before the last one. Force instant (non-
+   smooth) scrolling while hidden so the initial jump doesn't animate across
+   slides — that animation was the flicker. */
+.carousel-banner:not(.carousel-banner-ready) .carousel-banner-slides {
+  visibility: hidden;
+  scroll-behavior: auto;
+}
+
 .carousel-banner .carousel-banner-slides::-webkit-scrollbar {
   display: none;
 }
