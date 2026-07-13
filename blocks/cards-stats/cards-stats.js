@@ -13,6 +13,9 @@ export default function decorate(block) {
       const img = document.createElement('img');
       img.setAttribute('src', href);
       img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+      // Stats band is at the very bottom of the page — lazy-load its image.
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
       picture.append(img);
       a.replaceWith(picture);
     }
@@ -36,6 +39,12 @@ export default function decorate(block) {
       else div.className = 'cards-stats-card-body';
     });
     ul.append(li);
+  });
+  ul.querySelectorAll('img').forEach((img) => {
+    // Stats band is at the very bottom of the page — lazy-load regardless of
+    // delivery mode (doc renders <img> directly; xwalk renders anchors).
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
   });
   ul.querySelectorAll('picture > img').forEach((img) => {
     // Only run the AEM image optimizer on same-origin media. External absolute

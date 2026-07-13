@@ -87,9 +87,20 @@ function createSlide(row, slideIndex, carouselId) {
     const img = document.createElement('img');
     img.setAttribute('src', imageAnchor.getAttribute('href'));
     img.setAttribute('alt', (imageAnchor.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+    // This carousel sits below the hero (off-screen at load), so lazy-load and
+    // async-decode its slide images to keep them off the critical path.
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
     picture.append(img);
     imageAnchor.replaceWith(picture);
   }
+
+  // Lazy-load / async-decode any already-rendered slide images too (doc
+  // delivery renders <img>/<picture> directly rather than an anchor).
+  imageCell?.querySelectorAll('img').forEach((img) => {
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
+  });
 
   const labeledBy = slide.querySelector('h1, h2, h3, h4, h5, h6');
   if (labeledBy) {

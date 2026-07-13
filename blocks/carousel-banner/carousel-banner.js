@@ -110,7 +110,7 @@ function buildBannerVideo(src) {
   video.setAttribute('muted', '');
   video.setAttribute('loop', '');
   video.setAttribute('playsinline', '');
-  video.setAttribute('preload', 'auto');
+  video.setAttribute('preload', 'metadata');
   const source = document.createElement('source');
   source.setAttribute('src', src);
   source.setAttribute('type', 'video/mp4');
@@ -155,9 +155,12 @@ function createSlide(row, slideIndex, carouselId) {
 
   // Slides whose source hero is a background video (CFE, 4QFY26) get the video
   // rendered full-bleed behind the image, with the still kept as a poster
-  // fallback until the video loads.
+  // fallback until the video loads. Only load the video on larger (desktop)
+  // viewports — the autoplaying MP4s are multi-megabyte and tank mobile
+  // performance (LCP/TBT), so on mobile we keep just the still image.
+  const isDesktopViewport = window.matchMedia('(width >= 900px)').matches;
   const posterImg = imageCell?.querySelector('img');
-  const videoSrc = videoForImage(posterImg ? posterImg.getAttribute('src') : '');
+  const videoSrc = isDesktopViewport ? videoForImage(posterImg ? posterImg.getAttribute('src') : '') : null;
   if (imageCell && videoSrc) {
     const video = buildBannerVideo(videoSrc);
     if (posterImg && posterImg.getAttribute('src')) {

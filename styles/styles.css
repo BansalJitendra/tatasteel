@@ -326,6 +326,16 @@ main > .section.investors {
   to { background-size: 110% auto; }
 }
 
+/* The infinite background-size zoom continuously repaints large backgrounds,
+   which hurts mobile performance (main-thread work / TBT). Disable it on small
+   screens and for users who prefer reduced motion. */
+@media (width < 900px), (prefers-reduced-motion: reduce) {
+  main > .section.products,
+  main > .section.investors {
+    animation: none;
+  }
+}
+
 main > .section.media {
   background-color: #f1f5f8;
   color: var(--text-color);

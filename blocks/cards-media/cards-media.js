@@ -22,6 +22,12 @@ const IN_THE_NEWS = [
 ];
 
 function optimizeImages(scope) {
+  scope.querySelectorAll('img').forEach((img) => {
+    // Media cards sit near the bottom of the page — lazy-load their thumbnails
+    // regardless of delivery mode (doc renders <img>; xwalk renders anchors).
+    img.setAttribute('loading', 'lazy');
+    img.setAttribute('decoding', 'async');
+  });
   scope.querySelectorAll('picture > img').forEach((img) => {
     // Only run the AEM image optimizer on same-origin media. External absolute
     // URLs (e.g. tatasteel.com thumbnails) must keep their full src — the
@@ -64,6 +70,10 @@ export default function decorate(block) {
       const img = document.createElement('img');
       img.setAttribute('src', href);
       img.setAttribute('alt', (a.textContent || '').trim().replace(/^https?:\/\/\S+$/, ''));
+      // Media cards sit near the bottom of the page — lazy-load their
+      // thumbnails so they stay off the initial (mobile) critical path.
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
       picture.append(img);
       a.replaceWith(picture);
     }
