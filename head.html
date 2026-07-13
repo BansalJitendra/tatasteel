@@ -1,6 +1,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<!-- The hero banner + section images are served cross-origin from
+     tatasteel.com; warm the connection early so the LCP image isn't delayed by
+     a cold DNS/TLS handshake. -->
+<link rel="preconnect" href="https://www.tatasteel.com" crossorigin>
+<link rel="dns-prefetch" href="https://www.tatasteel.com">
 <!-- Load the web font without blocking first paint: fetch the stylesheet as a
      low-priority resource and flip it to a real stylesheet once loaded. Text
      renders immediately in the Helvetica/Arial fallback and swaps to Lato. -->
