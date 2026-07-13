@@ -298,13 +298,14 @@ header nav .nav-tools a:hover {
 /* Tools links render as sprite icons (source images/sprite.png), not text.
    Hide the label text and show the sprite glyph at the source's coordinates.
    The sprite glyphs are white in the PNG, so we use the sprite as a mask and
-   paint it with a solid color, giving the live site's blue utility icons. */
+   paint it with a solid color. White keeps the Home/Contact/Search/Locations
+   icons legible on the dark hero banner. */
 header nav .nav-tools a.nav-tools-icon {
   display: block;
   height: 14px;
   overflow: hidden;
   text-indent: -9999px;
-  background-color: rgb(51 122 183);
+  background-color: #fff;
   mask-image: url('https://www.tatasteel.com/images/sprite.png');
   mask-repeat: no-repeat;
 }
