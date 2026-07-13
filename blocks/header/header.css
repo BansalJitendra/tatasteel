@@ -296,52 +296,62 @@ header nav .nav-tools a:hover {
 }
 
 /* Tools links render as sprite icons (source images/sprite.png), not text.
-   Hide the label text and show the sprite glyph at the source's coordinates. */
+   Hide the label text and show the sprite glyph at the source's coordinates.
+   The sprite glyphs are white in the PNG, so we use the sprite as a mask and
+   paint it with a solid color, giving the live site's blue utility icons. */
 header nav .nav-tools a.nav-tools-icon {
   display: block;
   height: 14px;
   overflow: hidden;
   text-indent: -9999px;
-  background-image: url('https://www.tatasteel.com/images/sprite.png');
-  background-repeat: no-repeat;
-  filter: brightness(0) invert(1);
+  background-color: rgb(51 122 183);
+  mask-image: url('https://www.tatasteel.com/images/sprite.png');
+  mask-repeat: no-repeat;
 }
 
 header nav .nav-tools a.nav-tools-icon-home {
   width: 17px;
-  background-position: 0 0;
+  mask-position: 0 0;
 }
 
 header nav .nav-tools a.nav-tools-icon-contact {
   width: 13px;
-  background-position: -21px 0;
+  mask-position: -21px 0;
 }
 
 header nav .nav-tools a.nav-tools-icon-search {
   width: 12px;
-  background-position: -38px 0;
+  mask-position: -38px 0;
 }
 
 header nav .nav-tools a.nav-tools-icon-locations {
   width: 13px;
-  background-position: -54px 0;
+  mask-position: -54px 0;
 }
 
 /* Accessibility Tools / Guide render as inline SVG glyphs (source uses
    FontAwesome + a gear icon). They also carry .nav-tools-icon, so they inherit
-   the sprite background + brightness/invert filter + text-indent meant for the
-   sprite glyphs. Reset all of that so only the clean white SVG shows. */
+   the sprite background + text-indent meant for the sprite glyphs. Reset all of
+   that so only the clean SVG shows. Colors match the live site: the
+   Accessibility Tools badge is green and the Guide gear is yellow. */
 header nav .nav-tools a.nav-tools-svg {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 24px;
   height: 24px;
-  background-image: none;
-  filter: none;
+  background-color: transparent;
+  mask-image: none;
   text-indent: 0;
   overflow: visible;
-  color: #fff;
+}
+
+header nav .nav-tools a.nav-tools-svg[aria-label='Accessibility Tools'] {
+  color: rgb(0 255 102);
+}
+
+header nav .nav-tools a.nav-tools-svg[aria-label='Accessibility Guide'] {
+  color: rgb(255 204 0);
 }
 
 header nav .nav-tools a.nav-tools-svg svg {
