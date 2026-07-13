@@ -251,5 +251,15 @@ export default async function decorate(block) {
 
   if (!isSingleSlide) {
     bindEvents(block);
+    // The source hero opens on its latest (last) slide — the 119th AGM banner —
+    // rather than the first. Match that by jumping to the last slide on load.
+    // Media loading and scroll-snap can shift the offset after the first frame,
+    // so re-assert the position across a few frames and again on window load.
+    const slideCount = slidesWrapper.querySelectorAll('.carousel-banner-slide').length;
+    const goLast = () => showSlide(block, slideCount - 1, 'instant');
+    requestAnimationFrame(goLast);
+    setTimeout(goLast, 100);
+    setTimeout(goLast, 400);
+    window.addEventListener('load', goLast, { once: true });
   }
 }
