@@ -35,7 +35,7 @@ function decorateSocialIcons(footer) {
   if (socialUl && !socialUl.previousElementSibling?.classList?.contains('footer-follow')) {
     const label = document.createElement('span');
     label.className = 'footer-follow';
-    label.textContent = 'FOLLOW US ON';
+    label.textContent = 'Follow Us On';
     socialUl.parentElement.insertBefore(label, socialUl);
     socialUl.parentElement.classList.add('footer-social');
   }

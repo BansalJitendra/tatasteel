@@ -2,7 +2,7 @@
 footer {
   background-color: #1d1d1d;
   color: #fff;
-  font-size: var(--body-font-size-xs);
+  font-size: 16px;
 }
 
 footer .footer {
@@ -44,14 +44,13 @@ footer .footer a:hover {
   text-decoration: underline;
 }
 
-/* Social icons row: "FOLLOW US ON" label + circular white glyphs. */
+/* Social icons row: "Follow Us On" label + circular white glyphs. */
 footer .footer .footer-follow {
   display: block;
   margin-bottom: 12px;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
-  text-transform: uppercase;
   color: #cfcfcf;
 }
 
