@@ -30,6 +30,9 @@ function decorateSocialIcons(footer) {
     a.setAttribute('target', '_blank');
     a.setAttribute('rel', 'noopener');
     a.innerHTML = SOCIAL_ICONS[key];
+    // Platform class so each icon renders in its brand color (like the source).
+    const platform = key.replace('.com', '');
+    a.classList.add('footer-social-icon', `footer-social-${platform}`);
   });
 
   if (socialUl && !socialUl.previousElementSibling?.classList?.contains('footer-follow')) {

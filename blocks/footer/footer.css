@@ -72,8 +72,31 @@ footer .footer .footer-social ul li a svg {
   height: 20px;
 }
 
+/* Brand colors for each platform icon, matching the source footer logos.
+   Scoped through `ul li` so they outrank the base `...ul li a { color:#fff }`. */
+footer .footer .footer-social ul li a.footer-social-facebook {
+  color: rgb(72 142 255);
+}
+
+footer .footer .footer-social ul li a.footer-social-twitter,
+footer .footer .footer-social ul li a.footer-social-x {
+  color: #fff;
+}
+
+footer .footer .footer-social ul li a.footer-social-linkedin {
+  color: rgb(10 102 194);
+}
+
+footer .footer .footer-social ul li a.footer-social-youtube {
+  color: rgb(255 15 15);
+}
+
+footer .footer .footer-social ul li a.footer-social-instagram {
+  color: rgb(218 80 131);
+}
+
 footer .footer .footer-social ul li a:hover {
-  color: var(--brand-blue, #3d7edb);
+  opacity: 0.85;
 }
 
 @media (width >= 900px) {
@@ -83,14 +106,17 @@ footer .footer .footer-social ul li a:hover {
   }
 
   /* The three sections (policy links / social / copyright) sit in an
-     intermediate wrapper div — lay THAT out as the horizontal footer row.
-     Live layout: policy links top-left with the copyright stacked directly
-     beneath them, and the social icons pinned top-right. */
+     intermediate wrapper div. Live layout: policy links top-left with the
+     copyright stacked directly beneath them (tight gap), and the social icons
+     pinned top-right. The social block is taller than the text rows, so pin it
+     absolutely to the right — that keeps it out of the flow and lets the
+     copyright sit right under the policy links instead of below the icons. */
   footer .footer > div {
+    position: relative;
     display: flex;
-    flex-flow: row wrap;
+    flex-direction: column;
     align-items: flex-start;
-    gap: 12px 24px;
+    gap: 6px;
   }
 
   footer .footer ul {
@@ -98,11 +124,13 @@ footer .footer .footer-social ul li a:hover {
   }
 
   /* Sections are in fixed DOM order: 1 = policy links, 2 = social, 3 =
-     copyright. Policy links stay top-left (default). */
+     copyright. Policy links and copyright stack on the left (default). */
 
-  /* Social icons: pinned to the far right of the top row. */
+  /* Social icons: pinned to the top-right, independent of the left column. */
   footer .footer > div > .section:nth-of-type(2) {
-    margin-left: auto;
+    position: absolute;
+    top: 0;
+    right: 0;
     text-align: right;
   }
 
@@ -110,10 +138,7 @@ footer .footer .footer-social ul li a:hover {
     justify-content: flex-end;
   }
 
-  /* Copyright: break onto its own full-width line so it sits left-aligned
-     directly below the policy links (matching the live footer). */
   footer .footer > div > .section:nth-of-type(3) {
-    flex-basis: 100%;
     text-align: left;
   }
 }
