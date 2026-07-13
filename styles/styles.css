@@ -227,6 +227,18 @@ main > .section:first-of-type {
   margin-top: 0;
 }
 
+/* The page ends with an empty trailing section (leftover cookie/audio chrome);
+   its 40px top margin created a gap between the stats band and the footer.
+   Collapse the last section's margin so the stats image sits flush with the
+   footer, matching the live site. */
+main > .section:last-of-type {
+  margin-bottom: 0;
+}
+
+main > .section.stats + .section {
+  margin-top: 0;
+}
+
 @media (width >= 900px) {
   main > .section > div {
     padding: 0 32px;
