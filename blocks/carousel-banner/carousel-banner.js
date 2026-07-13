@@ -252,6 +252,33 @@ export default async function decorate(block) {
   container.append(slidesWrapper);
   block.prepend(container);
 
+  // The hero opens on the LAST slide, so that image is the LCP element. Give it
+  // high fetch priority + eager load and mark the other slide images lazy, so
+  // the browser prioritizes the visible banner and defers the rest. This helps
+  // FCP/Speed Index (the LCP image starts downloading right away).
+  const slideImages = [...slidesWrapper.querySelectorAll('.carousel-banner-slide-image img')];
+  slideImages.forEach((img, idx) => {
+    if (idx === slideImages.length - 1) {
+      img.setAttribute('fetchpriority', 'high');
+      img.setAttribute('loading', 'eager');
+    } else {
+      img.setAttribute('loading', 'lazy');
+      img.setAttribute('decoding', 'async');
+    }
+  });
+  // Preload the LCP banner image so it isn't discovered late (it lives inside a
+  // JS-decorated block). Only the last slide's image is the initial LCP.
+  const lcpImg = slideImages[slideImages.length - 1];
+  const lcpSrc = lcpImg?.getAttribute('src');
+  if (lcpSrc && !document.head.querySelector(`link[rel="preload"][href="${lcpSrc}"]`)) {
+    const preload = document.createElement('link');
+    preload.rel = 'preload';
+    preload.as = 'image';
+    preload.href = lcpSrc;
+    preload.setAttribute('fetchpriority', 'high');
+    document.head.append(preload);
+  }
+
   if (!isSingleSlide) {
     bindEvents(block);
     // The source hero opens on its latest (last) slide — the 119th AGM banner —
