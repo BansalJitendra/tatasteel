@@ -261,5 +261,30 @@ export default async function decorate(block) {
     setTimeout(goLast, 100);
     setTimeout(goLast, 400);
     window.addEventListener('load', goLast, { once: true });
+
+    // Auto-rotate through the slides like the source hero. Advance every 5s,
+    // pause while the pointer is over the banner, and honor reduced-motion.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!prefersReducedMotion) {
+      const AUTOPLAY_MS = 5000;
+      let timer = null;
+      const advance = () => {
+        const current = parseInt(block.dataset.activeSlide || '0', 10);
+        showSlide(block, (current + 1) % slideCount);
+      };
+      const start = () => {
+        if (!timer) timer = setInterval(advance, AUTOPLAY_MS);
+      };
+      const stop = () => {
+        clearInterval(timer);
+        timer = null;
+      };
+      block.addEventListener('mouseenter', stop);
+      block.addEventListener('mouseleave', start);
+      block.addEventListener('focusin', stop);
+      block.addEventListener('focusout', start);
+      // Start after the initial jump-to-last settles.
+      setTimeout(start, 600);
+    }
   }
 }
