@@ -302,7 +302,7 @@ main > .section.media {
 main > .section.products {
   background-color: #000;
   color: #fff;
-  background-image: url('https://www.tatasteel.com/media/19998/1400x790.jpg');
+  background-image: url('/img/products-1400.webp');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -312,7 +312,7 @@ main > .section.products {
 main > .section.investors {
   background-color: #000;
   color: #fff;
-  background-image: url('https://www.tatasteel.com/images/investor_bg.jpg');
+  background-image: url('/img/investor-1400.webp');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
@@ -333,6 +333,17 @@ main > .section.investors {
   main > .section.products,
   main > .section.investors {
     animation: none;
+  }
+}
+
+/* Serve the smaller (750w) section backgrounds on small screens to save bytes. */
+@media (width < 900px) {
+  main > .section.products {
+    background-image: url('/img/products-750.webp');
+  }
+
+  main > .section.investors {
+    background-image: url('/img/investor-750.webp');
   }
 }
 

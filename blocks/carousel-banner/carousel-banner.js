@@ -85,6 +85,43 @@ function remapToLandscape(src) {
   return hit ? LANDSCAPE_IMAGE_REMAP[hit] : src;
 }
 
+// Locally-hosted, optimized WebP versions of the hero stills. The source images
+// are large JPEGs on tatasteel.com that bypass EDS optimization (the AGM banner
+// alone was ~656KB); these WebP renders are a fraction of the size and are
+// served from our own origin. Keyed by a substring of the external src.
+const LOCAL_WEBP = [
+  {
+    match: 'ts-119-agm-banner', small: '/img/agm-750.webp', large: '/img/agm-1400.webp', w: 1400, h: 790,
+  },
+  {
+    match: 'cfe-vr-new-experence', small: '/img/cfe-500.webp', large: '/img/cfe-500.webp', w: 500, h: 283,
+  },
+  {
+    match: '4qfy26-financial-results-ts-thumb-banner', small: '/img/4qfy-500.webp', large: '/img/4qfy-500.webp', w: 500, h: 283,
+  },
+];
+
+function localWebpFor(src) {
+  if (!src) return null;
+  return LOCAL_WEBP.find((m) => src.includes(m.match)) || null;
+}
+
+// Swap an <img> to the optimized local WebP with a responsive srcset so mobile
+// pulls the small render and desktop the large one.
+function applyLocalWebp(img) {
+  const webp = localWebpFor(img.getAttribute('src'));
+  if (!webp) return;
+  img.setAttribute('src', webp.small);
+  if (webp.large !== webp.small) {
+    img.setAttribute('srcset', `${webp.small} 750w, ${webp.large} 1400w`);
+    img.setAttribute('sizes', '100vw');
+  } else {
+    img.removeAttribute('srcset');
+  }
+  img.setAttribute('width', webp.w);
+  img.setAttribute('height', webp.h);
+}
+
 // The source plays full-bleed background videos on the desktop hero for the
 // Centre for Excellence and 4QFY26 slides (there is no high-res still — only a
 // 500px thumbnail, which looks stretched when upscaled). Map those slides to
@@ -92,8 +129,10 @@ function remapToLandscape(src) {
 const VIDEO_BY_IMAGE = [
   { match: '/media/21664/500x781.jpg', video: 'https://www.tatasteel.com/media/21667/1400x790px-video.mp4' },
   { match: 'cfe-vr-new-experence', video: 'https://www.tatasteel.com/media/21667/1400x790px-video.mp4' },
+  { match: '/img/cfe-500.webp', video: 'https://www.tatasteel.com/media/21667/1400x790px-video.mp4' },
   { match: '4qfy26-financial-results-ts-mobile-banner', video: 'https://www.tatasteel.com/media/25717/4qfy26-financial-results-ts.mp4' },
   { match: '4qfy26-financial-results-ts-thumb-banner', video: 'https://www.tatasteel.com/media/25717/4qfy26-financial-results-ts.mp4' },
+  { match: '/img/4qfy-500.webp', video: 'https://www.tatasteel.com/media/25717/4qfy26-financial-results-ts.mp4' },
 ];
 
 function videoForImage(src) {
@@ -144,13 +183,15 @@ function createSlide(row, slideIndex, carouselId) {
   }
 
   // Delivery renders the reference as <img> directly (or inside <picture>);
-  // remap those portrait stills to their landscape equivalents too.
+  // remap those portrait stills to their landscape equivalents too, then swap
+  // to the optimized local WebP render.
   imageCell?.querySelectorAll('img').forEach((img) => {
     const remapped = remapToLandscape(img.getAttribute('src'));
     if (remapped !== img.getAttribute('src')) {
       img.setAttribute('src', remapped);
       img.removeAttribute('srcset');
     }
+    applyLocalWebp(img);
   });
 
   // Slides whose source hero is a background video (CFE, 4QFY26) get the video
@@ -267,7 +308,10 @@ export default async function decorate(block) {
     }
   });
   // Preload the LCP banner image so it isn't discovered late (it lives inside a
-  // JS-decorated block). Only the last slide's image is the initial LCP.
+  // JS-decorated block). Only the last slide's image is the initial LCP. Mirror
+  // its responsive srcset/sizes so the preload matches the render the browser
+  // actually picks (small WebP on mobile, large on desktop) — avoiding a wasted
+  // double download.
   const lcpImg = slideImages[slideImages.length - 1];
   const lcpSrc = lcpImg?.getAttribute('src');
   if (lcpSrc && !document.head.querySelector(`link[rel="preload"][href="${lcpSrc}"]`)) {
@@ -275,6 +319,11 @@ export default async function decorate(block) {
     preload.rel = 'preload';
     preload.as = 'image';
     preload.href = lcpSrc;
+    const lcpSrcset = lcpImg.getAttribute('srcset');
+    if (lcpSrcset) {
+      preload.setAttribute('imagesrcset', lcpSrcset);
+      preload.setAttribute('imagesizes', lcpImg.getAttribute('sizes') || '100vw');
+    }
     preload.setAttribute('fetchpriority', 'high');
     document.head.append(preload);
   }
