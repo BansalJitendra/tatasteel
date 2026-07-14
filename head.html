@@ -1,10 +1,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
+<!-- Statically preload the hero LCP banner (locally-hosted WebP). It lives in a
+     JS-decorated block, so without this the browser can't discover it until
+     scripts run — critical under mobile CPU throttling. imagesrcset lets the
+     browser pick the 750w render on mobile and 1400w on desktop. -->
+<link rel="preload" as="image" href="/img/agm-750.webp" imagesrcset="/img/agm-750.webp 750w, /img/agm-1400.webp 1400w" imagesizes="100vw" fetchpriority="high">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<!-- The hero banner + section images are served cross-origin from
-     tatasteel.com; warm the connection early so the LCP image isn't delayed by
-     a cold DNS/TLS handshake. -->
-<link rel="preconnect" href="https://www.tatasteel.com" crossorigin>
+<!-- Below-the-fold images still hotlink from tatasteel.com; keep a lightweight
+     DNS hint (no full preconnect — the LCP image is local now). -->
 <link rel="dns-prefetch" href="https://www.tatasteel.com">
 <!-- Load the web font without blocking first paint: fetch the stylesheet as a
      low-priority resource and flip it to a real stylesheet once loaded. Text
